@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASST 2026 - COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corp: {
+                            dark: '#0f172a',    // Slate 900
+                            blue: '#1e3a8a',    // Blue 900
+                            light: '#1d4ed8',   // Blue 700
+                            bg: '#f8fafc',      // Slate 50
+                            border: '#e2e8f0',  // Slate 200
+                        },
+                        status: {
+                            green: '#16a34a',
+                            yellow: '#ca8a04',
+                            red: '#dc2626'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-view {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- MENÚ SUPERIOR -->
+    <nav class="bg-corp-dark text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <span class="font-bold text-xl tracking-tight">PASST 2026</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="navigate('home')" id="nav-home" class="nav-btn bg-corp-light text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio / Estructura PASST</button>
+                        <button onclick="navigate('registros')" id="nav-registros" class="nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Registros SST</button>
+                        <button onclick="navigate('extintores')" id="nav-extintores" class="nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-fire-extinguisher text-amber-400"></i> Guía de Extintores
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center gap-3">
+                    <button onclick="navigate('home')" class="text-gray-300 hover:text-white px-2"><i class="fa-solid fa-home"></i></button>
+                    <button onclick="navigate('registros')" class="text-gray-300 hover:text-white px-2"><i class="fa-solid fa-folder-open"></i></button>
+                    <button onclick="navigate('extintores')" class="text-amber-400 hover:text-white px-2"><i class="fa-solid fa-fire-extinguisher"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ENCABEZADO CORPORATIVO CON TRÍO DE LOGOS -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-6">
+                
+                <!-- SECCIÓN DE LOGOS (Empresa, FII, EPISST) -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 shrink-0">
+                    <!-- Logo Principal (Empresa) -->
+                    <div class="w-36 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white overflow-hidden shadow-sm hover:shadow transition-shadow">
+                        <img src="Logo.jpg" onerror="this.src='Logo.png'" alt="Logo COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C" class="max-h-full max-w-full object-contain p-2">
+                    </div>
+
+                    <!-- Logo FII -->
+                    <div class="w-36 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white overflow-hidden shadow-sm hover:shadow transition-shadow">
+                        <img src="logoFII.png" onerror="this.src='logoFII.jpg'" alt="Logo FII" class="max-h-full max-w-full object-contain p-2">
+                    </div>
+
+                    <!-- Logo EPISST -->
+                    <div class="w-36 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white overflow-hidden shadow-sm hover:shadow transition-shadow">
+                        <img src="logoEPISST.png" onerror="this.src='logoEPISST.jpg'" alt="Logo EPISST" class="max-h-full max-w-full object-contain p-2">
+                    </div>
+                </div>
+
+                <!-- Títulos y Botones de Acción -->
+                <div class="flex-1 text-center lg:text-left w-full">
+                    <h2 class="text-xs font-bold text-corp-light tracking-widest uppercase mb-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</h2>
+                    
+                    <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 mb-3">
+                        <h1 class="text-2xl lg:text-3xl font-extrabold text-corp-dark leading-tight">Programa Anual de Seguridad y Salud en el Trabajo</h1>
+                        
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 shrink-0">
+                            <!-- BOTÓN GUÍA DE EXTINTORES -->
+                            <button onclick="navigate('extintores')" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2.5 rounded-lg text-sm font-bold transition-colors shadow-md border border-amber-800 flex items-center justify-center">
+                                <i class="fa-solid fa-fire-extinguisher mr-2 text-lg"></i> GUÍA DE EXTINTORES
+                            </button>
+
+                            <!-- DESCARGA PASST PDF -->
+                            <a href="passt-2026-completo.pdf" download class="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-sm font-bold transition-colors shadow-md border border-red-800 flex items-center justify-center">
+                                <i class="fa-solid fa-file-pdf mr-2 text-lg"></i> Descargar PASST PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center lg:justify-start gap-3 mb-3">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">AÑO: 2026</span>
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded border border-gray-200"><i class="fa-solid fa-file-contract mr-1"></i> Documento Oficial</span>
+                    </div>
+                    <p class="text-gray-500 text-xs sm:text-sm max-w-3xl">Documento de planificación y gestión de las actividades de Seguridad y Salud en el Trabajo. Este portal interactivo permite consultar la estructura, guías operativas de prevención y anexos correspondientes a la gestión del periodo 2026.</p>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative">
+
+        <!-- VISTA 1: ESTRUCTURA PASST -->
+        <div id="view-estructura" class="fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-corp-dark">Estructura del PASST 2026</h2>
+                <p class="text-gray-500 text-sm mt-1">Seleccione un componente para visualizar su detalle o descargar el anexo correspondiente.</p>
+            </div>
+            
+            <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Tarjetas inyectadas vía JS -->
+            </div>
+        </div>
+
+        <!-- VISTA 2: DETALLE DEL COMPONENTE -->
+        <div id="view-detalle" class="hidden-view fade-in">
+            <div class="mb-6 flex justify-between items-center">
+                <button onclick="navigate('home')" class="text-corp-light hover:text-corp-blue font-medium transition-colors flex items-center bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm hover:shadow">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Volver a la estructura
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-corp-dark text-white px-6 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="detalle-num" class="bg-white/20 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl border border-white/30 backdrop-blur-sm">00</div>
+                        <div>
+                            <h2 id="detalle-titulo" class="text-xl font-bold">Título del Componente</h2>
+                            <p id="detalle-desc" class="text-gray-300 text-sm">Descripción breve</p>
+                        </div>
+                    </div>
+                    <a id="detalle-pdf-btn" href="#" download class="shrink-0 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-md border border-red-800 flex items-center">
+                        <i class="fa-solid fa-file-pdf mr-2 text-lg"></i> Descargar anexo PDF
+                    </a>
+                </div>
+                
+                <div id="detalle-contenido" class="p-6 md:p-8">
+                    <!-- Contenido HTML dinámico -->
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA 3: REGISTROS OBLIGATORIOS -->
+        <div id="view-registros" class="hidden-view fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-corp-dark">Registros Obligatorios de SST</h2>
+                <p class="text-gray-500 text-sm mt-1">Los 8 registros exigidos normativamente para el Sistema de Gestión de Seguridad y Salud en el Trabajo.</p>
+            </div>
+            
+            <div id="registros-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Registros inyectados vía JS -->
+            </div>
+        </div>
+
+        <!-- VISTA 4: GUÍA DE EXTINTORES Y RESEÑA TÉCNICA -->
+        <div id="view-extintores" class="hidden-view fade-in">
+            <div class="mb-6 flex justify-between items-center">
+                <button onclick="navigate('home')" class="text-corp-light hover:text-corp-blue font-medium transition-colors flex items-center bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm hover:shadow">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Volver a la estructura
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <!-- Cabecera de la Guía -->
+                <div class="bg-amber-600 text-white px-6 py-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-white/20 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-2xl border border-white/30 backdrop-blur-sm">
+                            <i class="fa-solid fa-fire-extinguisher"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-extrabold">GUÍA DE SELECCIÓN Y COLOCACIÓN DE EXTINTORES</h2>
+                            <p class="text-amber-100 text-sm">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C (Norma NFPA 10 / NTP 350.043)</p>
+                        </div>
+                    </div>
+
+                    <!-- BOTÓN DE DESCARGA DIRECTA GENERADA POR JS -->
+                    <button onclick="downloadDXF()" class="shrink-0 bg-corp-dark hover:bg-slate-800 text-white px-5 py-3 rounded-lg text-sm font-bold transition-all shadow-md border border-slate-700 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-file-arrow-down text-xl text-yellow-400"></i>
+                        <span>DESCARGAR PLANO DXF</span>
+                    </button>
+                </div>
+
+                <!-- VISUALIZADOR INTERACTIVO DEL PLANO CAD DENTRO DE LA WEB -->
+                <div class="p-6 md:p-8 space-y-8">
+                    
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 shadow-inner text-white">
+                        <div class="flex flex-col md:flex-row items-center justify-between mb-4 gap-4 border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-compass-drafting text-yellow-400 text-2xl"></i>
+                                <div>
+                                    <h3 class="font-bold text-lg text-white">VISUALIZADOR EN TIEMPO REAL - PLANO DE DISTRIBUCIÓN CAD</h3>
+                                    <p class="text-xs text-slate-400">Planta General: 137.2 m × 45.7 m | Cobertura de Extintores R = 22.9 m</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="downloadDXF()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-2 rounded font-bold transition-colors flex items-center gap-1.5">
+                                    <i class="fa-solid fa-download"></i> Guardar extintorcomms.dxf
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PLANO GRAFICADO VÍA SVG DINÁMICO -->
+                        <div class="w-full bg-black rounded-lg p-4 border border-slate-800 overflow-x-auto flex justify-center">
+                            <svg viewBox="-20 -50 240 120" class="w-full max-w-5xl h-auto min-w-[600px] font-sans">
+                                <!-- Fondo de rejilla estilo CAD -->
+                                <defs>
+                                    <pattern id="cadGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+                                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#111827" stroke-width="0.3"/>
+                                    </pattern>
+                                </defs>
+                                <rect x="-20" y="-50" width="240" height="120" fill="#030712"/>
+                                <rect x="-20" y="-50" width="240" height="120" fill="url(#cadGrid)"/>
+
+                                <!-- Título del plano -->
+                                <text x="10" y="-38" fill="#38bdf8" font-size="4" font-weight="bold">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</text>
+                                <text x="10" y="-32" fill="#e2e8f0" font-size="3" font-weight="bold">PLANO DE DISTRIBUCIÓN DE EXTINTORES - PLANTA GENERAL</text>
+                                <text x="10" y="-27" fill="#94a3b8" font-size="2.2">Edificación: 137.2 m x 45.7 m | Radio de Cobertura: 22.9 m (NFPA 10)</text>
+
+                                <!-- Estructura del Edificio (ARQUITECTURA) -->
+                                <rect x="0" y="0" width="137.2" height="45.7" fill="#1e293b" fill-opacity="0.4" stroke="#ffffff" stroke-width="1.2"/>
+
+                                <!-- Arcos de Cobertura -->
+                                <path d="M 0 45.7 A 22.9 22.9 0 0 0 45.7667 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 45.7 45.7 A 22.9 22.9 0 0 0 91.5 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 91.4333 45.7 A 22.9 22.9 0 0 0 137.2333 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+
+                                <path d="M 0 0 A 22.9 22.9 0 0 1 45.7667 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 45.7 0 A 22.9 22.9 0 0 1 91.5 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 91.4333 0 A 22.9 22.9 0 0 1 137.2333 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+
+                                <!-- Extintores Top (E-01, E-02, E-03) -->
+                                <g>
+                                    <circle cx="22.8667" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <circle cx="22.8667" cy="45.7" r="0.5" fill="#ffffff"/>
+                                    <text x="20.3667" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-01</text>
+
+                                    <circle cx="68.6" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <circle cx="68.6" cy="45.7" r="0.5" fill="#ffffff"/>
+                                    <text x="66.1" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-02</text>
+
+                                    <circle cx="114.3333" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <circle cx="114.3333" cy="45.7" r="0.5" fill="#ffffff"/>
+                                    <text x="111.8333" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-03</text>
+                                </g>
+
+                                <!-- Extintores Bottom (E-04, E-05, E-06) -->
+                                <g>
+                                    <circle cx="22.8667" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <circle cx="22.8667" cy="0" r="0.5" fill="#ffffff"/>
+                                    <text x="20.3667" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-04</text>
+
+                                    <circle cx="68.6" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <circle cx="68.6" cy="0" r="0.5" fill="#ffffff"/>
+                                    <text x="66.1" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-05</text>
+
+                                    <circle cx="114.3333" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <circle cx="114.3333" cy="0" r="0.5" fill="#ffffff"/>
+                                    <text x="111.8333" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-06</text>
+                                </g>
+
+                                <!-- Cotas -->
+                                <line x1="0" y1="-12" x2="137.2" y2="-12" stroke="#4ade80" stroke-width="0.6"/>
+                                <line x1="0" y1="-14" x2="0" y2="2" stroke="#4ade80" stroke-width="0.4"/>
+                                <line x1="137.2" y1="-14" x2="137.2" y2="2" stroke="#4ade80" stroke-width="0.4"/>
+                                <text x="50" y="-14" fill="#4ade80" font-size="2.8" font-weight="bold">LARGO TOTAL: 137.2 m</text>
+
+                                <line x1="-12" y1="0" x2="-12" y2="45.7" stroke="#4ade80" stroke-width="0.6"/>
+                                <line x1="-14" y1="0" x2="2" y2="0" stroke="#4ade80" stroke-width="0.4"/>
+                                <line x1="-14" y1="45.7" x2="2" y2="45.7" stroke="#4ade80" stroke-width="0.4"/>
+                                <text x="-18" y="24" fill="#4ade80" font-size="2.8" font-weight="bold" transform="rotate(-90 -18,24)">ANCHO: 45.7 m</text>
+
+                                <line x1="22.8667" y1="45.7" x2="6.6738" y2="29.5071" stroke="#facc15" stroke-width="0.6" stroke-dasharray="1,1"/>
+                                <text x="8" y="38" fill="#facc15" font-size="2.3">Radio = 22.9 m</text>
+
+                                <!-- Leyenda Box -->
+                                <rect x="145" y="0" width="50" height="45.7" fill="#0f172a" stroke="#e2e8f0" stroke-width="0.6"/>
+                                <text x="148" y="6" fill="#facc15" font-size="2.5" font-weight="bold">LEYENDA CAD</text>
+                                <line x1="146" y1="8" x2="194" y2="8" stroke="#334155" stroke-width="0.4"/>
+
+                                <circle cx="152" cy="15" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.4"/>
+                                <text x="156" y="16" fill="#ffffff" font-size="2">EXTINTOR PORTATIL</text>
+
+                                <path d="M 149 25 A 3 3 0 0 1 155 25" fill="none" stroke="#22d3ee" stroke-width="0.6" stroke-dasharray="1,1"/>
+                                <text x="156" y="25" fill="#22d3ee" font-size="2">RADIO COBERTURA 22.9m</text>
+
+                                <text x="148" y="34" fill="#94a3b8" font-size="1.8">E-01 a E-06: Identificación</text>
+                                <text x="148" y="39" fill="#94a3b8" font-size="1.8">Escala: 1:1 Metros (CAD)</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Bloque de Reseña Técnica -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-corp-dark mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-corp-light"></i> Reseña Técnica y Criterios de Selección
+                        </h3>
+                        <p class="text-sm text-gray-700 leading-relaxed text-justify mb-4">
+                            En las operaciones e instalaciones de <strong>COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</strong>, el plan de protección contra incendios se rige bajo la norma <strong>NFPA 10</strong> y la <strong>NTP 350.043</strong>. Dado el carácter industrial y técnico de la organización (equipos de telecomunicaciones, talleres y tableros eléctricos), se aplican los siguientes criterios para la dotación de extintores portátiles:
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                                <span class="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">Áreas Generales / Mantenimiento</span>
+                                <h4 class="font-bold text-gray-800 text-base">PQS ABC (20 lbs / 9 kg)</h4>
+                                <p class="text-xs text-gray-600 mt-2">Capacidad extintora mínima <strong>4-A:80-B:C</strong>. Protección versátil para sólidos comburentes (A), líquidos inflamables (B) y riesgos eléctricos (C).</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 block mb-1">Servidores y Tableros Electrónicos</span>
+                                <h4 class="font-bold text-gray-800 text-base">CO2 (10 lbs / 4.5 kg)</h4>
+                                <p class="text-xs text-gray-600 mt-2">Agente limpio no conductor de electricidad. Diseñado para Data Centers, Racks y centros de control sin dejar residuos.</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                                <span class="text-xs font-bold uppercase tracking-wider text-green-600 block mb-1">Radio Max. de Cobertura</span>
+                                <h4 class="font-bold text-gray-800 text-base">22.9 metros (75 pies)</h4>
+                                <p class="text-xs text-gray-600 mt-2">Distancia máxima de recorrido peatonal continuo desde cualquier punto de trabajo hasta la ubicación del extintor más cercano.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Especificaciones de Montaje y Señalética -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-corp-dark text-base mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-ruler-vertical text-corp-light"></i> Altura de Instalación y Soporte
+                            </h4>
+                            <ul class="text-xs text-gray-600 space-y-2.5 list-disc list-inside leading-relaxed">
+                                <li><strong>Extintores ≤ 18 kg (40 lbs):</strong> Altura máxima del soporte superior a <strong>1.50 m</strong> sobre el piso terminado.</li>
+                                <li><strong>Extintores > 18 kg (40 lbs):</strong> Altura máxima del soporte superior fijada a <strong>1.07 m</strong> del piso.</li>
+                                <li><strong>Despeje de Piso:</strong> Mínimo <strong>10 cm</strong> de separación libre del piso para evitar corrosión e impactos.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-corp-dark text-base mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-eye text-corp-light"></i> Demarcación y Señalización
+                            </h4>
+                            <ul class="text-xs text-gray-600 space-y-2.5 list-disc list-inside leading-relaxed">
+                                <li><strong>Señal Fotoluminiscente:</strong> Instalada a <strong>2.10 m</strong> de altura sobre el punto del equipo.</li>
+                                <li><strong>Cuadro de Seguridad en Piso:</strong> Área delimitada de <strong>80 cm × 80 cm</strong> en color amarillo con franjas negras a 45°.</li>
+                                <li><strong>Despeje Obligatorio:</strong> Mantener un radio de <strong>1 metro</strong> libre de obstaculizaciones.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Cuadro informativo y descarga directa JS -->
+                    <div class="bg-slate-900 text-white rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h4 class="font-bold text-lg text-yellow-400">Descarga Directa del Plano AutoCAD (extintorcomms.dxf)</h4>
+                            <p class="text-xs text-gray-300 mt-1">
+                                Haga clic en el botón para generar y descargar instantáneamente el archivo vectorial <strong>extintorcomms.dxf</strong> listo para abrir en AutoCAD, ZWCAD, QCAD o Civil 3D.
+                            </p>
+                        </div>
+                        <button onclick="downloadDXF()" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg text-sm font-bold transition-colors shrink-0 flex items-center gap-2 shadow-lg">
+                            <i class="fa-solid fa-file-arrow-down text-lg"></i> DESCARGAR extintorcomms.dxf
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-500">
+            &copy; 2026 COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C - Sistema de Gestión de Seguridad y Salud en el Trabajo.
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // ESTRUCTURA DXF PURA DE AUTOCAD PARA DESCARGA DIRECTA
+        const DXF_CONTENT = "0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1009\n9\n$INSBASE\n10\n0.0\n20\n0.0\n30\n0.0\n9\n$EXTMIN\n10\n-30.0\n20\n-30.0\n30\n0.0\n9\n$EXTMAX\n10\n200.0\n20\n80.0\n30\n0.0\n0\nENDSEC\n0\nSECTION\n2\nTABLES\n0\nTABLE\n2\nLTYPE\n70\n1\n0\nLTYPE\n2\nCONTINUOUS\n70\n0\n3\nSolid line\n72\n65\n73\n0\n40\n0.0\n0\nENDTAB\n0\nTABLE\n2\nLAYER\n70\n5\n0\nLAYER\n2\nARQUITECTURA\n70\n0\n62\n7\n6\nCONTINUOUS\n0\nLAYER\n2\nEXTINTORES\n70\n0\n62\n1\n6\nCONTINUOUS\n0\nLAYER\n2\nCOBERTURA\n70\n0\n62\n4\n6\nCONTINUOUS\n0\nLAYER\n2\nCOTAS\n70\n0\n62\n3\n6\nCONTINUOUS\n0\nLAYER\n2\nTEXTOS\n70\n0\n62\n2\n6\nCONTINUOUS\n0\nENDTAB\n0\nTABLE\n2\nSTYLE\n70\n1\n0\nSTYLE\n2\nSTANDARD\n70\n0\n40\n0.0\n41\n1.0\n50\n0.0\n71\n0\n42\n2.5\n3\ntxt\n4\n\n0\nENDTAB\n0\nENDSEC\n0\nSECTION\n2\nBLOCKS\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLINE\n8\nARQUITECTURA\n10\n0.0000\n20\n0.0000\n30\n0.0\n11\n137.2000\n21\n0.0000\n31\n0.0\n0\nLINE\n8\nARQUITECTURA\n10\n137.2000\n20\n0.0000\n30\n0.0\n11\n137.2000\n21\n45.7000\n31\n0.0\n0\nLINE\n8\nARQUITECTURA\n10\n137.2000\n20\n45.7000\n30\n0.0\n11\n0.0000\n21\n45.7000\n31\n0.0\n0\nLINE\n8\nARQUITECTURA\n10\n0.0000\n20\n45.7000\n30\n0.0\n11\n0.0000\n21\n0.0000\n31\n0.0\n0\nCIRCLE\n8\nEXTINTORES\n10\n22.8667\n20\n45.7000\n30\n0.0\n40\n1.2000\n0\nCIRCLE\n8\nEXTINTORES\n10\n22.8667\n20\n45.7000\n30\n0.0\n40\n0.4000\n0\nTEXT\n8\nEXTINTORES\n10\n20.3667\n20\n47.7000\n30\n0.0\n40\n2.0000\n1\nE-01\n0\nARC\n8\nCOBERTURA\n10\n22.8667\n20\n45.7000\n30\n0.0\n40\n22.9000\n50\n180.0\n51\n360.0\n0\nCIRCLE\n8\nEXTINTORES\n10\n68.6000\n20\n45.7000\n30\n0.0\n40\n1.2000\n0\nCIRCLE\n8\nEXTINTORES\n10\n68.6000\n20\n45.7000\n30\n0.0\n40\n0.4000\n0\nTEXT\n8\nEXTINTORES\n10\n66.1000\n20\n47.7000\n30\n0.0\n40\n2.0000\n1\nE-02\n0\nARC\n8\nCOBERTURA\n10\n68.6000\n20\n45.7000\n30\n0.0\n40\n22.9000\n50\n180.0\n51\n360.0\n0\nCIRCLE\n8\nEXTINTORES\n10\n114.3333\n20\n45.7000\n30\n0.0\n40\n1.2000\n0\nCIRCLE\n8\nEXTINTORES\n10\n114.3333\n20\n45.7000\n30\n0.0\n40\n0.4000\n0\nTEXT\n8\nEXTINTORES\n10\n111.8333\n20\n47.7000\n30\n0.0\n40\n2.0000\n1\nE-03\n0\nARC\n8\nCOBERTURA\n10\n114.3333\n20\n45.7000\n30\n0.0\n40\n22.9000\n50\n180.0\n51\n360.0\n0\nCIRCLE\n8\nEXTINTORES\n10\n22.8667\n20\n0.0000\n30\n0.0\n40\n1.2000\n0\nCIRCLE\n8\nEXTINTORES\n10\n22.8667\n20\n0.0000\n30\n0.0\n40\n0.4000\n0\nTEXT\n8\nEXTINTORES\n10\n20.3667\n20\n-4.5000\n30\n0.0\n40\n2.0000\n1\nE-04\n0\nARC\n8\nCOBERTURA\n10\n22.8667\n20\n0.0000\n30\n0.0\n40\n22.9000\n50\n0.0\n51\n180.0\n0\nCIRCLE\n8\nEXTINTORES\n10\n68.6000\n20\n0.0000\n30\n0.0\n40\n1.2000\n0\nCIRCLE\n8\nEXTINTORES\n10\n68.6000\n20\n0.0000\n30\n0.0\n40\n0.4000\n0\nTEXT\n8\nEXTINTORES\n10\n66.1000\n20\n-4.5000\n30\n0.0\n40\n2.0000\n1\nE-05\n0\nARC\n8\nCOBERTURA\n10\n68.6000\n20\n0.0000\n30\n0.0\n40\n22.9000\n50\n0.0\n51\n180.0\n0\nCIRCLE\n8\nEXTINTORES\n10\n114.3333\n20\n0.0000\n30\n0.0\n40\n1.2000\n0\nCIRCLE\n8\nEXTINTORES\n10\n114.3333\n20\n0.0000\n30\n0.0\n40\n0.4000\n0\nTEXT\n8\nEXTINTORES\n10\n111.8333\n20\n-4.5000\n30\n0.0\n40\n2.0000\n1\nE-06\n0\nARC\n8\nCOBERTURA\n10\n114.3333\n20\n0.0000\n30\n0.0\n40\n22.9000\n50\n0.0\n51\n180.0\n0\nTEXT\n8\nTEXTOS\n10\n10.0000\n20\n63.7000\n30\n0.0\n40\n4.0000\n1\nCOMMS COMMUNICATION\n0\nTEXT\n8\nTEXTOS\n10\n10.0000\n20\n57.7000\n30\n0.0\n40\n3.0000\n1\nPLANO DE DISTRIBUCION DE EXTINTORES\n0\nTEXT\n8\nTEXTOS\n10\n10.0000\n20\n52.7000\n30\n0.0\n40\n2.2000\n1\nDIMENSIONES: 137.2 m x 45.7 m\n0\nTEXT\n8\nTEXTOS\n10\n10.0000\n20\n48.7000\n30\n0.0\n40\n2.2000\n1\nRADIO DE COBERTURA: 22.9 m\n0\nLINE\n8\nCOTAS\n10\n0.0000\n20\n-12.0000\n30\n0.0\n11\n137.2000\n21\n-12.0000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n0.0000\n20\n-14.0000\n30\n0.0\n11\n0.0000\n21\n2.0000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n137.2000\n20\n-14.0000\n30\n0.0\n11\n137.2000\n21\n2.0000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n-1.0000\n20\n-13.0000\n30\n0.0\n11\n1.0000\n21\n-11.0000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n136.2000\n20\n-13.0000\n30\n0.0\n11\n138.2000\n21\n-11.0000\n31\n0.0\n0\nTEXT\n8\nCOTAS\n10\n53.6000\n20\n-16.5000\n30\n0.0\n40\n2.5000\n1\nLARGO TOTAL: 137.2 m\n0\nLINE\n8\nCOTAS\n10\n-12.0000\n20\n0.0000\n30\n0.0\n11\n-12.0000\n21\n45.7000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n-14.0000\n20\n0.0000\n30\n0.0\n11\n2.0000\n21\n0.0000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n-14.0000\n20\n45.7000\n30\n0.0\n11\n2.0000\n21\n45.7000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n-13.0000\n20\n-1.0000\n30\n0.0\n11\n-11.0000\n21\n1.0000\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n-13.0000\n20\n44.7000\n30\n0.0\n11\n-11.0000\n21\n46.7000\n31\n0.0\n0\nTEXT\n8\nCOTAS\n10\n-32.0000\n20\n22.8500\n30\n0.0\n40\n2.5000\n1\nANCHO TOTAL: 45.7 m\n0\nLINE\n8\nCOTAS\n10\n22.8667\n20\n45.7000\n30\n0.0\n11\n6.6738\n21\n29.5071\n31\n0.0\n0\nLINE\n8\nCOTAS\n10\n5.9738\n20\n28.8071\n30\n0.0\n11\n7.3738\n21\n30.2071\n31\n0.0\n0\nTEXT\n8\nCOTAS\n10\n6.8667\n20\n33.7000\n30\n0.0\n40\n2.0000\n1\nRADIO DE COBERTURA: 22.9 m\n0\nLINE\n8\nTEXTOS\n10\n147.2000\n20\n45.7000\n30\n0.0\n11\n195.2000\n21\n45.7000\n31\n0.0\n0\nLINE\n8\nTEXTOS\n10\n195.2000\n20\n45.7000\n30\n0.0\n11\n195.2000\n21\n13.7000\n31\n0.0\n0\nLINE\n8\nTEXTOS\n10\n195.2000\n20\n13.7000\n30\n0.0\n11\n147.2000\n21\n13.7000\n31\n0.0\n0\nLINE\n8\nTEXTOS\n10\n147.2000\n20\n13.7000\n30\n0.0\n11\n147.2000\n21\n45.7000\n31\n0.0\n0\nTEXT\n8\nTEXTOS\n10\n150.2000\n20\n41.2000\n30\n0.0\n40\n2.3000\n1\nLEYENDA\n0\nLINE\n8\nTEXTOS\n10\n148.7000\n20\n39.7000\n30\n0.0\n11\n193.7000\n21\n39.7000\n31\n0.0\n0\nCIRCLE\n8\nEXTINTORES\n10\n153.2000\n20\n34.7000\n30\n0.0\n40\n1.2000\n0\nCIRCLE\n8\nEXTINTORES\n10\n153.2000\n20\n34.7000\n30\n0.0\n40\n0.4000\n0\nTEXT\n8\nTEXTOS\n10\n157.2000\n20\n33.7000\n30\n0.0\n40\n2.0000\n1\nEXTINTOR\n0\nARC\n8\nCOBERTURA\n10\n153.2000\n20\n27.7000\n30\n0.0\n40\n3.0000\n50\n0.0\n51\n180.0\n0\nTEXT\n8\nTEXTOS\n10\n157.2000\n20\n26.7000\n30\n0.0\n40\n2.0000\n1\nARCOS/CIRCULOS = RADIO DE COBERTURA\n0\nTEXT\n8\nTEXTOS\n10\n150.2000\n20\n19.7000\n30\n0.0\n40\n2.0000\n1\nE-01 a E-06 = IDENTIFICACION DE EXTINTORES\n0\nENDSEC\n0\nEOF";
+
+        // FUNCIÓN QUE CREA EL BLOB Y DESCARGA INSTANTÁNEAMENTE EL ARCHIVO .DXF REAL
+        function downloadDXF() {
+            const blob = new Blob([DXF_CONTENT], { type: 'application/dxf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'extintorcomms.dxf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        const HTML_SIN_INFO = `
+            <div class="p-10 text-center flex flex-col items-center justify-center bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                <i class="fa-solid fa-circle-exclamation text-4xl text-gray-400 mb-3"></i>
+                <h3 class="text-lg font-bold text-gray-600">AÚN NO SE CUENTA CON INFORMACIÓN</h3>
+                <p class="text-sm text-gray-400 mt-1">Este contenido o anexo aún no ha sido cargado en el sistema.</p>
+            </div>
+        `;
+
+        // BASE DE DATOS DE LOS 19 COMPONENTES DEL PASST
+        const componentesPASST = [
+            { 
+                id: '01', 
+                title: 'ALCANCE', 
+                icon: 'fa-crosshairs', 
+                file: '01-alcance.pdf', 
+                desc: 'Alcance del Plan Anual de Seguridad y Salud Ocupacional.', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">ALCANCE DEL PASST</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 text-justify leading-relaxed">
+                            El presente Plan Anual de Seguridad y Salud Ocupacional tiene un alcance específico y es de aplicación obligatoria para todas las actividades operativas, conexas y de apoyo desarrolladas por el personal de <strong>COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C.</strong> destacado en el proyecto dentro de las instalaciones de <strong>VOLCAN COMPAÑÍA MINERA S.A.A. – Unidad Minera San Cristóbal - Carahuacra</strong>.
+                        </p>
+                    </div>
+                `
+            },
+            { 
+                id: '02', 
+                title: 'LÍNEA BASE', 
+                icon: 'fa-chart-line', 
+                file: 'lineabase.pdf', 
+                desc: 'Estadísticas e índices de accidentabilidad al cierre de diciembre del año 2024.', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">LÍNEA BASE</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            No se tuvo accidentes mortales ni accidentes incapacitantes al mes de diciembre del año 2024.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 text-center shadow-sm">
+                                <span class="text-xs text-gray-500 font-bold uppercase tracking-wider block mb-2">Índice de Frecuencia</span>
+                                <span class="text-3xl font-extrabold text-corp-dark">0</span>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 text-center shadow-sm">
+                                <span class="text-xs text-gray-500 font-bold uppercase tracking-wider block mb-2">Índice de Severidad</span>
+                                <span class="text-3xl font-extrabold text-corp-dark">0</span>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 text-center shadow-sm">
+                                <span class="text-xs text-gray-500 font-bold uppercase tracking-wider block mb-2">Índice de Accidentabilidad</span>
+                                <span class="text-3xl font-extrabold text-corp-dark">0</span>
+                            </div>
+                        </div>
+                    </div>
+                ` 
+            },
+            { 
+                id: '03', 
+                title: 'POLÍTICA DE SST', 
+                icon: 'fa-file-signature', 
+                file: 'politicasegComms.pdf',
+                desc: 'Política integrada de gestión y compromisos rectores en SST.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-8 rounded-lg relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-corp-blue opacity-5 rounded-bl-full"></div>
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-extrabold text-corp-dark">POLÍTICA DE SEGURIDAD Y SALUD EN EL TRABAJO</h3>
+                            <p class="text-sm font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-4 text-justify leading-relaxed">
+                            <strong>COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</strong> cuenta con una política integrada de gestión (<strong>Documento: RD-PL-01, Versión 08</strong>) aprobada por la gerencia el <strong>15/10/2025</strong>. En materia estricta de SST, la organización asume formalmente los siguientes compromisos rectores:
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-status-green mt-1 mr-3"></i>
+                                <span class="text-sm text-gray-700">Eliminar los peligros y reducir los riesgos para nuestros trabajadores, clientes y proveedores, previniendo accidentes, incidentes y enfermedades ocupacionales.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-status-green mt-1 mr-3"></i>
+                                <span class="text-sm text-gray-700">Cumplir la normativa legal aplicable y otros requisitos relacionados adoptados por la empresa.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-status-green mt-1 mr-3"></i>
+                                <span class="text-sm text-gray-700">Promover la capacitación y sensibilización, fomentando la participación y consulta de los trabajadores y/o representantes.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-status-green mt-1 mr-3"></i>
+                                <span class="text-sm text-gray-700">Mejorar continuamente el Sistema Integrado de Gestión y el desempeño a través de evaluaciones periódicas.</span>
+                            </li>
+                        </ul>
+                        <div class="text-right mt-8 border-t pt-4">
+                            <p class="text-sm font-bold text-gray-800">Gerencia General</p>
+                            <p class="text-xs text-gray-500">Documento: RD-PL-01 | Versión: 08 | Aprobado: 15/10/2025</p>
+                        </div>
+                    </div>
+                `
+            },
+            { 
+                id: '04', 
+                title: 'OBJETIVOS Y METAS', 
+                icon: 'fa-bullseye', 
+                file: 'objetivosymetas.pdf', 
+                desc: 'Objetivos, metas e indicadores para el Sistema de Gestión de SST 2026.', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">OBJETIVOS Y METAS DE SST</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            <strong>Communications and Systems Development SAC</strong> establece sus objetivos y metas de Seguridad y Salud en el Trabajo para el periodo 2026, orientados a prevenir accidentes, enfermedades ocupacionales y promover la mejora continua en el entorno laboral.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-bullseye text-corp-light"></i> Objetivos Generales
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    Mantener la cero accidentalidad mortal e incapacitante, fortalecer la cultura de prevención y asegurar el cumplimiento de la normativa legal aplicable en todas las operaciones.
+                                </p>
+                            </div>
+
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-line text-corp-light"></i> Metas e Indicadores
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    Evaluación continua del cumplimiento del programa de capacitaciones, inspecciones planeadas y efectividad del plan de respuesta ante emergencias.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ` 
+            },
+            { 
+                id: '05', 
+                title: 'COMITÉ DE SST', 
+                icon: 'fa-users', 
+                file: 'comiteseguridad.pdf', 
+                desc: 'Organización, conformación y funciones del Comité o Supervisor de SST.', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">COMITÉ DE SEGURIDAD Y SALUD EN EL TRABAJO</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            El Comité (o Supervisor) de Seguridad y Salud en el Trabajo es el órgano bipartito y paritario encargado de promover la salud y seguridad laboral, asesorar y vigilar el cumplimiento de las normas de SST dentro de <strong>Communications and Systems Development SAC</strong>.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-users text-corp-light"></i> Conformación y Representación
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    Integrado equitativamente por representantes del empleador y de los trabajadores, garantizando la consulta, participación activa y diálogo constante en materia preventiva.
+                                </p>
+                            </div>
+
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-list-check text-corp-light"></i> Funciones Principales
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    Aprobar el PASST y RISST, realizar reuniones mensuales ordinarias, evaluar avances estadísticos e investigar incidentes o accidentes de trabajo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ` 
+            },
+            { 
+                id: '06', 
+                title: 'MATRIZ IPERC', 
+                icon: 'fa-triangle-exclamation', 
+                file: '06-iperc.pdf', 
+                desc: 'Identificación de Peligros, Evaluación de Riesgos y Medidas de Control (Línea Base y Continuo).', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">MATRIZ IPERC</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            <strong>Communications and Systems Development SAC</strong> realizará la identificación de peligros y evaluación de riesgos mediante el desarrollo del mapeo de procesos de las actividades que ejecuta la organización. A partir de este análisis se elaborará y/o actualizará la Matriz IPERC Línea Base, considerando la metodología establecida por la organización y la normativa aplicable.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-clipboard-check text-corp-light"></i> IPERC Continuo en Campo
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    Además, el IPERC Continuo es como herramienta de identificación permanente de peligros y evaluación de riesgos en campo. Este será realizado diariamente, por actividad y tarea, antes del inicio de los trabajos, con la finalidad de identificar los riesgos potenciales y establecer las medidas de control correspondientes. La supervisión encargada verificará el correcto llenado y realizará la revisión y conformidad del IPERC Continuo antes del inicio de las actividades.
+                                </p>
+                            </div>
+
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-rotate text-corp-light"></i> Criterios de Revisión y Actualización
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    La revisión y actualización de la Matriz IPERC estará a cargo del encargado del área, quien deberá asegurar su actualización ante la identificación de nuevos peligros o riesgos, desarrollo de nuevos proyectos, cambios en los procesos, métodos de trabajo, equipos, insumos o materias primas, modificaciones de los requisitos legales, resultados de acciones correctivas o preventivas y ocurrencia de incidentes que determinen la necesidad de revisar la matriz.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ` 
+            },
+            { 
+                id: '07', 
+                title: 'MAPA DE RIESGOS', 
+                icon: 'fa-map-location-dot', 
+                file: 'mapaderiesgos.pdf', 
+                desc: 'Representación gráfica de los riesgos asociados a los ambientes de trabajo y operaciones.', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">MAPA DE RIESGOS</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            El Mapa de Riesgos es una representación gráfica que permite identificar, localizar y visualizar los peligros presentes en las áreas de trabajo, facilitando la toma de acciones preventivas y la concienciación del personal destacado en el proyecto.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-map-location-dot text-corp-light"></i> Identificación Visual
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    Utiliza simbología normalizada para señalar las zonas de riesgo alto, medio y bajo, así como la ubicación de equipos de emergencia y rutas de evacuación.
+                                </p>
+                            </div>
+
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-eye text-corp-light"></i> Difusión y Visibilidad
+                                </h4>
+                                <p class="text-xs text-gray-600 leading-relaxed text-justify">
+                                    Se mantiene publicado en áreas visibles y estratégicas del proyecto para garantizar el conocimiento y consulta continua de todos los trabajadores y visitantes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ` 
+            },
+            { 
+                id: '08', 
+                title: 'ORGANIZACIÓN Y RESPONSABILIDADES', 
+                icon: 'fa-sitemap', 
+                file: '08-organizacion.pdf', 
+                desc: 'Funciones y responsabilidades en SST asignadas a cada nivel de la organización.', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">ORGANIZACIÓN Y RESPONSABILIDADES EN SST</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            <strong>Communications and Systems Development SAC</strong> establece las responsabilidades en materia de Seguridad y Salud en el Trabajo de los diferentes niveles de la organización, con el objetivo de garantizar la implementación, cumplimiento y mejora continua del Sistema de Gestión de Seguridad y Salud en el Trabajo.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-tie text-corp-light"></i> Gerencia General
+                                </h4>
+                                <ul class="text-xs text-gray-600 space-y-2 list-disc list-inside leading-relaxed">
+                                    <li>Liderar el cumplimiento del Programa Anual de SST, demostrando compromiso con la Política de SST.</li>
+                                    <li>Proporcionar los recursos necesarios para la gestión preventiva.</li>
+                                    <li>Garantizar la dotación de equipos de protección personal y realizar el seguimiento del desempeño de las áreas y responsables de SST.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="font-bold text-corp-dark text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-halved text-corp-light"></i> Área de Seguridad y Salud Ocupacional
+                                </h4>
+                                <ul class="text-xs text-gray-600 space-y-2 list-disc list-inside leading-relaxed">
+                                    <li>Planificar, organizar, ejecutar y controlar el Programa Anual de SST; asesorar y difundir las disposiciones de SST.</li>
+                                    <li>Realizar inspecciones, auditorías e investigaciones de accidentes e incidentes de trabajo.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: '09',
+                title: 'CAPACITACIÓN Y ENTRENAMIENTO',
+                icon: 'fa-chalkboard-user',
+                file: 'capacitaciones.pdf',
+                desc: 'Programa de capacitaciones, inducciones y entrenamiento en SST.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">CAPACITACIÓN Y ENTRENAMIENTO EN SST</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Se establece el Programa Anual de Capacitación para garantizar la competencia y formación continua de todos los colaboradores en materia de prevención de riesgos laborales y respuesta a emergencias.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '10',
+                title: 'INSPECCIONES INTERNAS DE SST',
+                icon: 'fa-magnifying-glass-chart',
+                file: 'inspecciones.pdf',
+                desc: 'Programa de inspecciones planeadas y no planeadas a las instalaciones y equipos.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">INSPECCIONES INTERNAS DE SST</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Las inspecciones periódicas permiten identificar condiciones subestándar y desviaciones en los procesos para adoptar acciones correctivas de manera oportuna.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '11',
+                title: 'SALUD OCUPACIONAL Y MONITOREOS',
+                icon: 'fa-notes-medical',
+                file: 'saludocupacional.pdf',
+                desc: 'Vigilancia de la salud de los trabajadores y monitoreos de agentes ocupacionales.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">SALUD OCUPACIONAL Y MONITOREOS</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Plan de vigilancia médica ocupacional, exámenes médicos de ingreso, periódicos y de retiro, así como el protocolo de monitoreo de agentes físicos, químicos, biológicos y ergonómicos.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '12',
+                title: 'CLIENTES, SUBCONTRATAS Y PROVEEDORES',
+                icon: 'fa-handshake',
+                file: 'subcontratas.pdf',
+                desc: 'Lineamientos de SST para la gestión de contratistas, subcontratistas y proveedores.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">GESTIÓN DE CONTRATISTAS Y PROVEEDORES</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Estándar y requisitos obligatorios de homologación y cumplimiento normativo para terceros que prestan servicios dentro de nuestras instalaciones u operaciones.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '13',
+                title: 'PLAN DE RESPUESTA ANTE EMERGENCIAS',
+                icon: 'fa-truck-medical',
+                file: 'emergencias.pdf',
+                desc: 'Procedimientos y protocolos de respuesta inmediata frente a contingencias y emergencias.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">PLAN DE RESPUESTA ANTE EMERGENCIAS</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Estructura de la brigada de emergencia, flujogramas de comunicación, evacuación, primeros auxilios y cronograma de simulacros anuales.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '14',
+                title: 'INVESTIGACIÓN DE ACCIDENTES E INCIDENTES',
+                icon: 'fa-kit-medical',
+                file: 'investigacion.pdf',
+                desc: 'Procedimiento de reporte e investigación de incidentes, accidentes y enfermedades.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">INVESTIGACIÓN DE ACCIDENTES E INCIDENTES</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Metodología de análisis de causa raíz para la atención oportuna de incidentes y aplicación de acciones de remediación que prevengan su recurrencia.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '15',
+                title: 'AUDITORÍAS DEL SG-SST',
+                icon: 'fa-file-signature',
+                file: 'auditorias.pdf',
+                desc: 'Evaluación y auditorías internas y externas al Sistema de Gestión de SST.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">AUDITORÍAS DEL SG-SST</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Mecanismos de auditoría periódica para comprobar la conformidad, efectividad y cumplimiento legal del Sistema de Gestión de SST.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '16',
+                title: 'ESTADÍSTICAS Y REGISTROS',
+                icon: 'fa-chart-pie',
+                file: 'estadisticas.pdf',
+                desc: 'Consolidado estadístico, indicadores de gestión y mantenimiento de registros.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">ESTADÍSTICAS Y REGISTROS</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Métricas mensuales y anuales de accidentabilidad, índices de frecuencia, severidad y cumplimiento de programas preventivos.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '17',
+                title: 'PRESUPUESTO Y PROGRAMA ANUAL',
+                icon: 'fa-calculator',
+                file: 'presupuesto.pdf',
+                desc: 'Asignación de recursos económicos y programa de actividades del PASST.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">PRESUPUESTO Y PROGRAMA ANUAL</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Presupuesto financiero aprobado para la adquisición de EPP, ejecuciones de monitoreo, capacitaciones, exámenes médicos y mantenimiento de equipos.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '18',
+                title: 'EPP Y MANTENIMIENTO',
+                icon: 'fa-hardhat',
+                file: 'epp.pdf',
+                desc: 'Dotación de Equipos de Protección Personal y mantenimiento de herramientas y equipos.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">EPP Y MANTENIMIENTO</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Especificaciones técnicas de EPP requeridos, matriz de entrega y programa de inspección y mantenimiento preventivo de equipos y herramientas.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: '19',
+                title: 'REVISIÓN POR LA DIRECCIÓN',
+                icon: 'fa-rotate',
+                file: 'revisiondireccion.pdf',
+                desc: 'Revisión periódica del sistema por la Gerencia General para asegurar su mejora continua.',
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-lg relative overflow-hidden">
+                        <div class="mb-6">
+                            <h3 class="text-xl md:text-2xl font-extrabold text-corp-dark">REVISIÓN POR LA DIRECCIÓN</h3>
+                            <p class="text-xs font-bold text-corp-light tracking-widest mt-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mb-6 text-justify leading-relaxed">
+                            Evaluación ejecutiva sobre el estado del SG-SST, decisiones para la asignación de recursos y definición de oportunidades de mejora.
+                        </p>
+                    </div>
+                `
+            }
+        ];
+
+        // BASE DE DATOS DE REGISTROS OBLIGATORIOS (R.M. 050-2013-TR)
+        const registrosSST = [
+            { id: '01', title: 'Registro de Accidentes de Trabajo e Incidentes', icon: 'fa-triangle-exclamation', file: 'registro-accidentes.pdf' },
+            { id: '02', title: 'Registro de Exámenes Médicos Ocupacionales', icon: 'fa-user-doctor', file: 'registro-examenes.pdf' },
+            { id: '03', title: 'Registro del Monitoreo de Agentes Ocupacionales', icon: 'fa-heart-pulse', file: 'registro-monitoreos.pdf' },
+            { id: '04', title: 'Registro de Inspecciones Internas de SST', icon: 'fa-clipboard-check', file: 'registro-inspecciones.pdf' },
+            { id: '05', title: 'Registro de Estadísticas de Seguridad y Salud', icon: 'fa-chart-pie', file: 'registro-estadisticas.pdf' },
+            { id: '06', title: 'Registro de Equipos de Seguridad o Emergencia', icon: 'fa-kit-medical', file: 'registro-equipos.pdf' },
+            { id: '07', title: 'Registro de Inducción, Capacitación y Simulacros', icon: 'fa-chalkboard-user', file: 'registro-capacitaciones.pdf' },
+            { id: '08', title: 'Registro de Auditorías del SG-SST', icon: 'fa-file-signature', file: 'registro-auditorias.pdf' }
+        ];
+
+        // RENDERIZADO DE TARJETAS
+        function renderCards() {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = componentesPASST.map(comp => `
+                <div onclick="showDetail('${comp.id}')" class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-extrabold text-corp-light bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">${comp.id}</span>
+                            <i class="fa-solid ${comp.icon} text-gray-400 group-hover:text-corp-light transition-colors text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-corp-dark text-sm mb-2 group-hover:text-corp-light transition-colors leading-snug">${comp.title}</h3>
+                        <p class="text-xs text-gray-500 line-clamp-3 leading-relaxed">${comp.desc}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-corp-light font-semibold">
+                        <span>Ver detalle</span>
+                        <i class="fa-solid fa-chevron-right text-xs transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // RENDERIZADO DE REGISTROS
+        function renderRegistros() {
+            const container = document.getElementById('registros-container');
+            container.innerHTML = registrosSST.map(reg => `
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded">REG. ${reg.id}</span>
+                            <i class="fa-solid ${reg.icon} text-corp-light text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-corp-dark text-sm mb-2 leading-snug">${reg.title}</h3>
+                    </div>
+                    <a href="${reg.file}" download class="mt-4 bg-slate-100 hover:bg-corp-light hover:text-white text-slate-700 py-2 px-3 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i> Descargar Registro
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        // MOSTRAR DETALLE
+        function showDetail(id) {
+            const comp = componentesPASST.find(item => item.id === id);
+            if (!comp) return;
+
+            document.getElementById('detalle-num').textContent = comp.id;
+            document.getElementById('detalle-titulo').textContent = comp.title;
+            document.getElementById('detalle-desc').textContent = comp.desc;
+            document.getElementById('detalle-pdf-btn').href = comp.file;
+
+            const contenidoDiv = document.getElementById('detalle-contenido');
+            contenidoDiv.innerHTML = comp.content ? comp.content : HTML_SIN_INFO;
+
+            navigate('detalle');
+        }
+
+        // NAVEGACIÓN ENTRE VISTAS
+        function navigate(viewName) {
+            document.getElementById('view-estructura').classList.add('hidden-view');
+            document.getElementById('view-detalle').classList.add('hidden-view');
+            document.getElementById('view-registros').classList.add('hidden-view');
+            document.getElementById('view-extintores').classList.add('hidden-view');
+
+            const navHome = document.getElementById('nav-home');
+            const navRegistros = document.getElementById('nav-registros');
+            const navExtintores = document.getElementById('nav-extintores');
+
+            if (navHome) navHome.className = "nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            if (navRegistros) navRegistros.className = "nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            if (navExtintores) navExtintores.className = "nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2";
+
+            if (viewName === 'home') {
+                document.getElementById('view-estructura').classList.remove('hidden-view');
+                if (navHome) navHome.className = "nav-btn bg-corp-light text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            } else if (viewName === 'registros') {
+                document.getElementById('view-registros').classList.remove('hidden-view');
+                if (navRegistros) navRegistros.className = "nav-btn bg-corp-light text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            } else if (viewName === 'extintores') {
+                document.getElementById('view-extintores').classList.remove('hidden-view');
+                if (navExtintores) navExtintores.className = "nav-btn bg-amber-600 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2";
+            } else if (viewName === 'detalle') {
+                document.getElementById('view-detalle').classList.remove('hidden-view');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // INICIALIZACIÓN
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCards();
+            renderRegistros();
+        });
+    </script>
+</body>
+</html>
