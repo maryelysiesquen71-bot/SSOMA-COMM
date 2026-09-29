@@ -1,1 +1,675 @@
-<!DOCTYPE html><html lang="es"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>PASST 2026 - COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</title>    <!-- Tailwind CSS -->    <script src="https://cdn.tailwindcss.com"></script>    <!-- FontAwesome Icons -->    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">        <script>        tailwind.config = {            theme: {                extend: {                    colors: {                        corp: {                            dark: '#0f172a',    // Slate 900                            blue: '#1e3a8a',    // Blue 900                            light: '#1d4ed8',   // Blue 700                            bg: '#f8fafc',      // Slate 50                            border: '#e2e8f0',  // Slate 200                        },                        status: {                            green: '#16a34a',                            yellow: '#ca8a04',                            red: '#dc2626'                        }                    },                    fontFamily: {                        sans: ['Inter', 'system-ui', 'sans-serif'],                    }                }            }        }    </script>    <style>        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');                body {            font-family: 'Inter', sans-serif;            background-color: #f8fafc;            color: #334155;        }        .fade-in {            animation: fadeIn 0.3s ease-in-out;        }        @keyframes fadeIn {            from { opacity: 0; transform: translateY(8px); }            to { opacity: 1; transform: translateY(0); }        }        .hidden-view {            display: none !important;        }    </style></head><body class="min-h-screen flex flex-col bg-slate-50">    <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->    <nav class="bg-corp-dark text-white shadow-lg sticky top-0 z-50">        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">            <div class="flex items-center justify-between h-16">                <!-- Logo/Marca -->                <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">                    <div class="bg-blue-600 p-2 rounded-lg text-white">                        <i class="fa-solid fa-shield-halved text-xl"></i>                    </div>                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">                        PASST 2026                    </span>                </div>                <!-- Menú Escritorio -->                <div class="hidden md:block">                    <div class="ml-10 flex items-center space-x-2">                        <button onclick="navigate('home')" id="nav-home" class="nav-btn bg-corp-light text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">                            <i class="fa-solid fa-house mr-1.5"></i> Inicio / PASST                        </button>                        <button onclick="navigate('nosotros')" id="nav-nosotros" class="nav-btn text-slate-300 hover:bg-slate-800 hover:text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all">                            <i class="fa-solid fa-users mr-1.5"></i> Quiénes Somos                        </button>                        <button onclick="navigate('registros')" id="nav-registros" class="nav-btn text-slate-300 hover:bg-slate-800 hover:text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all">                            <i class="fa-solid fa-folder-open mr-1.5"></i> Registros SST                        </button>                        <button onclick="navigate('extintores')" id="nav-extintores" class="nav-btn text-slate-300 hover:bg-slate-800 hover:text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5">                            <i class="fa-solid fa-fire-extinguisher text-amber-400"></i> Guía Extintores                        </button>                    </div>                </div>                <!-- Menú Móvil -->                <div class="md:hidden flex items-center gap-2">                    <button onclick="navigate('home')" class="text-slate-300 hover:text-white p-2"><i class="fa-solid fa-house text-lg"></i></button>                    <button onclick="navigate('nosotros')" class="text-slate-300 hover:text-white p-2"><i class="fa-solid fa-users text-lg"></i></button>                    <button onclick="navigate('registros')" class="text-slate-300 hover:text-white p-2"><i class="fa-solid fa-folder-open text-lg"></i></button>                    <button onclick="navigate('extintores')" class="text-amber-400 hover:text-white p-2"><i class="fa-solid fa-fire-extinguisher text-lg"></i></button>                </div>            </div>        </div>    </nav>    <!-- ENCABEZADO CORPORATIVO CON LOGOS E INSTITUCIONES -->    <header class="bg-white border-b border-slate-200 shadow-sm">        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">            <div class="flex flex-col lg:flex-row items-center justify-between gap-6">                                <!-- Logos de la Institución y Empresa -->                <div class="flex flex-wrap items-center justify-center gap-3 shrink-0">                    <div class="w-32 h-16 border border-slate-200 rounded-lg flex items-center justify-center bg-white p-2 shadow-xs hover:border-blue-300 transition-colors">                        <img src="Logo.jpg" onerror="this.src='https://via.placeholder.com/150x80?text=Empresa+S.A.C'" alt="Logo Empresa" class="max-h-full max-w-full object-contain">                    </div>                    <div class="w-32 h-16 border border-slate-200 rounded-lg flex items-center justify-center bg-white p-2 shadow-xs hover:border-blue-300 transition-colors">                        <img src="logoFII.png" onerror="this.src='https://via.placeholder.com/150x80?text=FII'" alt="Logo FII" class="max-h-full max-w-full object-contain">                    </div>                    <div class="w-32 h-16 border border-slate-200 rounded-lg flex items-center justify-center bg-white p-2 shadow-xs hover:border-blue-300 transition-colors">                        <img src="logoEPISST.png" onerror="this.src='https://via.placeholder.com/150x80?text=EPISST'" alt="Logo EPISST" class="max-h-full max-w-full object-contain">                    </div>                </div>                <!-- Título Principal y Acciones -->                <div class="flex-1 text-center lg:text-left">                    <div class="inline-block bg-blue-50 text-corp-light text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-2 border border-blue-100">                        COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C                    </div>                    <h1 class="text-2xl sm:text-3xl font-extrabold text-corp-dark tracking-tight leading-tight">                        Plan Anual de Seguridad y Salud en el Trabajo (PASST)                    </h1>                    <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl">                        Desarrollado como proyecto aplicativo para el curso de <strong>Prevención de Accidentes Laborales</strong>.                    </p>                </div>                <!-- Botones de Acción -->                <div class="flex flex-wrap items-center justify-center gap-2.5 shrink-0">                    <button onclick="navigate('extintores')" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-2">                        <i class="fa-solid fa-fire-extinguisher text-base"></i> GUÍA DE EXTINTORES                    </button>                    <a href="passt-2026-completo.pdf" download class="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-2">                        <i class="fa-solid fa-file-pdf text-base"></i> Descargar PASST                    </a>                </div>            </div>        </div>    </header>    <!-- CONTENEDOR PRINCIPAL MULTI-VISTA -->    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">        <!-- VISTA 1: INICIO / ESTRUCTURA PASST --><div id="view-home" class="fade-in space-y-6">    <!-- HERO BANNER CON IMAGEN ANIMADA -->    <div class="relative overflow-hidden rounded-2xl bg-slate-900 text-white min-h-[420px] flex items-center p-8 md:p-12 shadow-xl border border-slate-800">                <!-- Imagen de Fondo Animada (Asegúrate de cambiar la URL de la imagen) -->        <div class="hero-bg-animated absolute inset-0 bg-cover bg-center brightness-75 scale-105"              style="background-image: url('imprincipal.jpg);"></div>                <!-- Superposición oscura para proteger la lectura del texto -->        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-transparent"></div>        <!-- Contenido Frontal -->        <div class="relative z-10 max-w-2xl space-y-4">                        <!-- Badge / Etiqueta -->            <div>                <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 shadow-sm">                    <i class="fa-solid fa-calendar-days text-blue-400"></i> Periodo lectivo: 2026                </span>            </div>            <!-- Título y Texto -->            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white drop-shadow-md leading-tight">                Estructura del PASST 2026            </h2>            <p class="text-slate-200 text-base md:text-lg leading-relaxed max-w-xl">                Explore cada componente del plan para revisar los objetivos, matriz IPERC y documentos anexos de forma clara e interactiva.            </p>            <!-- Botones -->            <div class="flex flex-wrap gap-3 pt-2">                <a href="#cards-container" class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg shadow-md transition transform active:scale-95">                    Ver Componentes                </a>                <button class="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm font-medium text-sm px-5 py-2.5 rounded-lg transition">                    Saber más                </button>            </div>        </div>    </div>    <!-- Tarjetas de Componentes (Inyectadas vía JS) -->    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div></div><!-- CSS PARA LA ANIMACIÓN (Puedes poner esto en tu archivo CSS o dentro de un tag <style>) --><style>    @keyframes heroZoom {        0% {            transform: scale(1);        }        50% {            transform: scale(1.12); /* Hace zoom suave del 12% */        }        100% {            transform: scale(1);        }    }    .hero-bg-animated {        /* Aplica la animación durante 20 segundos de forma infinita y suave */        animation: heroZoom 20s ease-in-out infinite;        will-change: transform;    }</style>    <!-- Tarjetas de Componentes (Inyectadas vía JS) -->    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div></div>        <!-- VISTA 2: QUIÉNES SOMOS (INTEGRANTES Y PROYECTO) -->        <div id="view-nosotros" class="hidden-view fade-in space-y-6">            <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">                <div class="bg-corp-dark text-white p-6 sm:p-8">                    <h2 class="text-2xl font-extrabold">Sobre el Equipo Desarrollador</h2>                    <p class="text-slate-300 text-sm mt-2 max-w-3xl">                        Somos estudiantes universitarios comprometidos con la Prevención de Accidentes Laborales y la implementación técnica de Sistemas de Gestión de SST aplicados al sector de Telecomunicaciones y Desarrollo de Sistemas.                    </p>                </div>                <div class="p-6 sm:p-8 space-y-8">                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">                        <!-- Foto de Grupo -->                        <div class="lg:col-span-5">                            <div class="rounded-xl overflow-hidden border border-slate-200 shadow-md bg-slate-100 relative group">                                <img src="FotoGrupal.jpg" onerror="this.src='https://via.placeholder.com/600x400?text=Foto+del+Equipo+de+Trabajo'" alt="Foto Grupal del Equipo" class="w-full h-64 object-cover">                                <div class="absolute inset-0 bg-corp-dark/20 group-hover:bg-transparent transition-colors"></div>                            </div>                        </div>                        <!-- Lista de Integrantes -->                        <div class="lg:col-span-7 space-y-4">                            <h3 class="text-lg font-bold text-corp-dark border-b border-slate-200 pb-2 flex items-center gap-2">                                <i class="fa-solid fa-user-graduate text-corp-light"></i> Integrantes del Proyecto                            </h3>                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">                                    <span class="text-xs font-semibold text-slate-800">Condorcuya Flores, Gerardo Manuel</span>                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170109</span>                                </div>                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">                                    <span class="text-xs font-semibold text-slate-800">Siesquen Roman, Gina Maryely</span>                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170304</span>                                </div>                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">                                    <span class="text-xs font-semibold text-slate-800">Arias Benavides, Leonardo Miguel</span>                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170278</span>                                </div>                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">                                    <span class="text-xs font-semibold text-slate-800">Delgado Jonis, Kassandra Mirella</span>                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170288</span>                                </div>                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 sm:col-span-2">                                    <span class="text-xs font-semibold text-slate-800">Vite Pimentel, Emmy</span>                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170122</span>                                </div>                            </div>                        </div>                    </div>                    <!-- Datos de la Empresa Estudiada -->                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">                        <h4 class="font-bold text-corp-blue text-base mb-2">Acerca de la Empresa Evaluada</h4>                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">                            <strong>COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</strong> es una empresa orientada a soluciones tecnológicas, infraestructura de redes e ingeniería de sistemas. Este portal interactivo recopila las políticas, análisis de riesgos y planes de contingencia para promover una cultura de prevención acorde a la Ley de Seguridad y Salud en el Trabajo N° 29783.                        </p>                    </div>                </div>            </div>        </div>        <!-- VISTA 3: DETALLE DEL COMPONENTE -->        <div id="view-detalle" class="hidden-view fade-in space-y-4">            <button onclick="navigate('home')" class="text-corp-light hover:text-corp-blue font-semibold transition-colors flex items-center bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-xs hover:shadow-sm text-sm">                <i class="fa-solid fa-arrow-left mr-2"></i> Volver a la estructura            </button>            <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">                <div class="bg-corp-dark text-white p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">                    <div class="flex items-center gap-4">                        <div id="detalle-num" class="bg-blue-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-black text-xl shadow-inner shrink-0">00</div>                        <div>                            <h2 id="detalle-titulo" class="text-xl font-bold">Título del Componente</h2>                            <p id="detalle-desc" class="text-slate-300 text-xs sm:text-sm">Descripción breve</p>                        </div>                    </div>                    <a id="detalle-pdf-btn" href="#" download class="shrink-0 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center">                        <i class="fa-solid fa-file-pdf mr-2 text-base"></i> Descargar Anexo PDF                    </a>                </div>                                <div id="detalle-contenido" class="p-6 sm:p-8 leading-relaxed text-sm text-slate-700">                    <!-- Contenido dinámico -->                </div>            </div>        </div>        <!-- VISTA 4: REGISTROS OBLIGATORIOS -->        <div id="view-registros" class="hidden-view fade-in space-y-6">            <div>                <h2 class="text-xl font-bold text-corp-dark">Registros Obligatorios de SST</h2>                <p class="text-slate-500 text-sm mt-0.5">Listado de los 8 registros exigidos normativamente para el Sistema de Gestión (RM 050-2013-TR).</p>            </div>                        <div id="registros-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"></div>        </div>        <!-- VISTA 5: GUÍA DE EXTINTORES Y PLANO CAD -->        <div id="view-extintores" class="hidden-view fade-in space-y-6">            <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">                <div class="bg-amber-600 text-white p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">                    <div class="flex items-center gap-3.5">                        <div class="bg-amber-700 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-2xl shadow-inner">                            <i class="fa-solid fa-fire-extinguisher"></i>                        </div>                        <div>                            <h2 class="text-xl font-extrabold">GUÍA DE SELECCIÓN Y COLOCACIÓN DE EXTINTORES</h2>                            <p class="text-amber-100 text-xs">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C (NFPA 10 / NTP 350.043)</p>                        </div>                    </div>                    <button onclick="downloadDXF()" class="shrink-0 bg-corp-dark hover:bg-slate-800 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-md flex items-center gap-2">                        <i class="fa-solid fa-file-arrow-down text-base text-yellow-400"></i>                        <span>DESCARGAR PLANO DXF</span>                    </button>                </div>                <div class="p-6 sm:p-8 space-y-8">                    <!-- Visualizador CAD en SVG -->                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-inner text-white">                        <div class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3 border-b border-slate-800 pb-3">                            <div class="flex items-center gap-3">                                <i class="fa-solid fa-compass-drafting text-yellow-400 text-xl"></i>                                <div>                                    <h3 class="font-bold text-sm text-white">PLANO DE DISTRIBUCIÓN CAD (VISTA INTERACTIVA)</h3>                                    <p class="text-[11px] text-slate-400">Planta General: 137.2 m × 45.7 m | Cobertura de Extintores R = 22.9 m</p>                                </div>                            </div>                            <button onclick="downloadDXF()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded font-bold transition-all flex items-center gap-1.5">                                <i class="fa-solid fa-download"></i> Guardar extintorcomms.dxf                            </button>                        </div>                        <!-- Gráfico SVG -->                        <div class="w-full bg-black rounded-lg p-3 border border-slate-800 overflow-x-auto flex justify-center">                            <svg viewBox="-25 -50 240 120" class="w-full max-w-5xl h-auto min-w-[650px] font-sans">                                <defs>                                    <pattern id="cadGrid" width="10" height="10" patternUnits="userSpaceOnUse">                                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#1e293b" stroke-width="0.3"/>                                    </pattern>                                </defs>                                <rect x="-25" y="-50" width="240" height="120" fill="#030712"/>                                <rect x="-25" y="-50" width="240" height="120" fill="url(#cadGrid)"/>                                <text x="10" y="-38" fill="#38bdf8" font-size="3.8" font-weight="bold">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</text>                                <text x="10" y="-32" fill="#e2e8f0" font-size="2.8" font-weight="bold">PLANO DE DISTRIBUCIÓN DE EXTINTORES - PLANTA GENERAL</text>                                <text x="10" y="-27" fill="#94a3b8" font-size="2.2">Edificación: 137.2 m x 45.7 m | Radio de Cobertura: 22.9 m (NFPA 10)</text>                                <!-- Contorno Edificio -->                                <rect x="0" y="0" width="137.2" height="45.7" fill="#1e293b" fill-opacity="0.4" stroke="#ffffff" stroke-width="1.2"/>                                <!-- Arcos Cobertura -->                                <path d="M 0 45.7 A 22.9 22.9 0 0 0 45.7667 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>                                <path d="M 45.7 45.7 A 22.9 22.9 0 0 0 91.5 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>                                <path d="M 91.4333 45.7 A 22.9 22.9 0 0 0 137.2333 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>                                <path d="M 0 0 A 22.9 22.9 0 0 1 45.7667 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>                                <path d="M 45.7 0 A 22.9 22.9 0 0 1 91.5 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>                                <path d="M 91.4333 0 A 22.9 22.9 0 0 1 137.2333 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>                                <!-- Puntos de Extintores -->                                <g>                                    <circle cx="22.86" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>                                    <text x="20.3" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-01</text>                                    <circle cx="68.6" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>                                    <text x="66.1" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-02</text>                                    <circle cx="114.3" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>                                    <text x="111.8" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-03</text>                                    <circle cx="22.86" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>                                    <text x="20.3" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-04</text>                                    <circle cx="68.6" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>                                    <text x="66.1" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-05</text>                                    <circle cx="114.3" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>                                    <text x="111.8" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-06</text>                                </g>                                <!-- Cotas -->                                <line x1="0" y1="-12" x2="137.2" y2="-12" stroke="#4ade80" stroke-width="0.6"/>                                <text x="50" y="-14" fill="#4ade80" font-size="2.8" font-weight="bold">LARGO TOTAL: 137.2 m</text>                                <line x1="-12" y1="0" x2="-12" y2="45.7" stroke="#4ade80" stroke-width="0.6"/>                                <text x="-18" y="24" fill="#4ade80" font-size="2.8" font-weight="bold" transform="rotate(-90 -18,24)">ANCHO: 45.7 m</text>                                <!-- Leyenda -->                                <rect x="145" y="0" width="50" height="45.7" fill="#0f172a" stroke="#e2e8f0" stroke-width="0.6"/>                                <text x="148" y="6" fill="#facc15" font-size="2.5" font-weight="bold">LEYENDA CAD</text>                                <circle cx="152" cy="15" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.4"/>                                <text x="156" y="16" fill="#ffffff" font-size="2">EXTINTOR PORTÁTIL</text>                                <text x="148" y="34" fill="#94a3b8" font-size="1.8">E-01 a E-06: Ubicaciones</text>                            </svg>                        </div>                    </div>                    <!-- Reseña Técnica -->                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-4">                        <h3 class="text-base font-bold text-corp-dark flex items-center gap-2">                            <i class="fa-solid fa-circle-info text-corp-light"></i> Criterios de Selección Técnicos                        </h3>                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">                            Bajo las normas <strong>NFPA 10</strong> y la <strong>NTP 350.043</strong>, los equipos portátiles han sido dimensionados según la tipología de riesgo presente en las salas de servidores, oficinas administrativas y laboratorios de prueba.                        </p>                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">                                <span class="text-[10px] font-extrabold uppercase text-red-600 block mb-1">Áreas Generales</span>                                <h4 class="font-bold text-slate-800 text-sm">PQS ABC (20 lbs)</h4>                                <p class="text-xs text-slate-600 mt-1">Apto para amagamientos combustibles sólidos (A), líquidos (B) y equipos energizados (C).</p>                            </div>                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">                                <span class="text-[10px] font-extrabold uppercase text-blue-600 block mb-1">Data Centers y Racks</span>                                <h4 class="font-bold text-slate-800 text-sm">CO2 (10 lbs)</h4>                                <p class="text-xs text-slate-600 mt-1">Agente limpio dieléctrico que no deja residuos ni daña circuitos electrónicos sensibles.</p>                            </div>                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">                                <span class="text-[10px] font-extrabold uppercase text-green-600 block mb-1">Distancia Peatonal</span>                                <h4 class="font-bold text-slate-800 text-sm">Máx. 22.9 metros</h4>                                <p class="text-xs text-slate-600 mt-1">Recorrido máximo garantizado hacia cualquier extintor más cercano.</p>                            </div>                        </div>                    </div>                </div>            </div>        </div>    </main>    <!-- PIE DE PÁGINA (FOOTER) -->    <footer class="bg-corp-dark text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">            <div>                <p class="font-bold text-white">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>                <p class="text-slate-400 mt-0.5">Proyecto de Prevención de Accidentes Laborales - FII / EPISST © 2026</p>            </div>            <div class="flex gap-4">                <button onclick="navigate('home')" class="hover:text-white transition-colors">Estructura</button>                <button onclick="navigate('nosotros')" class="hover:text-white transition-colors">Equipo</button>                <button onclick="navigate('registros')" class="hover:text-white transition-colors">Registros</button>                <button onclick="navigate('extintores')" class="hover:text-white transition-colors">Guía CAD</button>            </div>        </div>    </footer>    <!-- LÓGICA JAVASCRIPT -->    <script>        // Datos de la estructura del PASST        const componentesPASST = [            { num: "01", titulo: "Alcance y Objetivos", desc: "Metas e indicadores de gestión en SST para el periodo 2026.", pdf: "anexo_01.pdf", detalle: "Definición clara del alcance del Sistema de Gestión para todas las sedes operativas y administrativas de la empresa, alineado a reducir la tasa de accidentalidad a cero." },            { num: "02", titulo: "Política del SG-SST", desc: "Compromisos de la alta dirección con la salud ocupacional.", pdf: "anexo_02.pdf", detalle: "Declaración firmada de la Gerencia para proveer recursos, cumplir leyes vigentes y fomentar la participación activa de los colaboradores." },            { num: "03", titulo: "Matriz IPERC", desc: "Identificación de Peligros, Evaluación de Riesgos y Controles.", pdf: "anexo_03.pdf", detalle: "Evaluación exhaustiva por puestos de trabajo, contemplando riesgos de ergonomía, electrocución y caídas en instalación de redes." },            { num: "04", titulo: "Comité de SST", desc: "Organización del Subcomité e integrantes paritarios.", pdf: "anexo_04.pdf", detalle: "Estructura organizativa, actas de constitución, funciones y cronograma de reuniones ordinarias mensuales." },            { num: "05", titulo: "Capacitaciones", desc: "Programa Anual con las 4 capacitaciones mínimas de ley.", pdf: "anexo_05.pdf", detalle: "Plan detallado con talleres sobre uso de extintores, primeros auxilios, ergonomía en oficinas y riesgos eléctricos." },            { num: "06", titulo: "Plan de Emergencias", desc: "Procedimientos de respuesta ante incendios y sismos.", pdf: "anexo_06.pdf", detalle: "Organización de brigadas, rutas de evacuación, puntos de encuentro y simulación periódica de emergencias." }        ];        // Datos de los 8 Registros Obligatorios        const registrosSST = [            { titulo: "1. Accidentes e Incidentes", desc: "Registro de accidentes de trabajo, enfermedades ocupacionales e incidentes peligrosos.", icono: "fa-triangle-exclamation" },            { titulo: "2. Exámenes Médicos", desc: "Registro de exámenes médicos ocupacionales (EMO) de ingreso, periódicos y de retiro.", icono: "fa-notes-medical" },            { titulo: "3. Monitoreos Ambientales", desc: "Monitoreo de agentes físicos, químicos, biológicos, ergonómicos y psicosociales.", icono: "fa-chart-line" },            { titulo: "4. Inspecciones Internas", desc: "Inspecciones de seguridad, equipos de protección y condiciones de trabajo.", icono: "fa-clipboard-check" },            { titulo: "5. Estadísticas de SST", desc: "Indicadores de frecuencia, gravedad y accidentabilidad mensual/anual.", icono: "fa-square-poll-vertical" },            { titulo: "6. Equipos de Seguridad", desc: "Registro de entrega de EPPs y equipos de emergencia a todo el personal.", icono: "fa-head-side-mask" },            { titulo: "7. Inducción y Capacitación", desc: "Constancias de entrenamiento, capacitaciones y simulacros realizados.", icono: "fa-chalkboard-user" },            { titulo: "8. Auditorías de SST", desc: "Resultados e informes de auditorías internas y externas del SG-SST.", icono: "fa-file-signature" }        ];        // Renderizado de tarjetas de Inicio        function renderHomeCards() {            const container = document.getElementById('cards-container');            container.innerHTML = componentesPASST.map((c, i) => `                <div class="bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between">                    <div>                        <div class="flex items-center justify-between mb-3">                            <span class="text-xs font-bold bg-blue-50 text-blue-700 px-2.5 py-1 rounded-md border border-blue-100">MÓDULO ${c.num}</span>                            <i class="fa-solid fa-folder text-slate-300"></i>                        </div>                        <h3 class="font-bold text-slate-800 text-base mb-1">${c.titulo}</h3>                        <p class="text-xs text-slate-500 leading-relaxed">${c.desc}</p>                    </div>                    <button onclick="verDetalle(${i})" class="mt-4 w-full bg-slate-50 hover:bg-blue-50 text-corp-light font-semibold text-xs py-2 rounded-lg border border-slate-200 transition-colors flex items-center justify-center gap-1.5">                        <span>Ver detalles</span>                        <i class="fa-solid fa-chevron-right text-[10px]"></i>                    </button>                </div>            `).join('');        }        // Renderizado de tarjetas de Registros Obligatorios        function renderRegistros() {            const container = document.getElementById('registros-container');            container.innerHTML = registrosSST.map(r => `                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">                    <div>                        <div class="w-10 h-10 bg-blue-50 text-corp-light rounded-lg flex items-center justify-center text-lg mb-3">                            <i class="fa-solid ${r.icono}"></i>                        </div>                        <h3 class="font-bold text-slate-800 text-sm mb-1.5">${r.titulo}</h3>                        <p class="text-xs text-slate-500 leading-relaxed">${r.desc}</p>                    </div>                    <span class="mt-4 text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 text-center py-1 rounded-md">OBLIGATORIO RM 050-2013-TR</span>                </div>            `).join('');        }        // Ver detalle de un módulo        function verDetalle(index) {            const item = componentesPASST[index];            document.getElementById('detalle-num').innerText = item.num;            document.getElementById('detalle-titulo').innerText = item.titulo;            document.getElementById('detalle-desc').innerText = item.desc;            document.getElementById('detalle-contenido').innerHTML = `<p>${item.detalle}</p>`;            document.getElementById('detalle-pdf-btn').href = item.pdf;                        navigate('detalle');        }        // Sistema de Navegación entre Pestañas        function navigate(viewName) {            const views = ['home', 'nosotros', 'detalle', 'registros', 'extintores'];            views.forEach(v => {                const el = document.getElementById(`view-${v}`);                if (el) el.classList.add('hidden-view');            });            const activeView = document.getElementById(`view-${viewName}`);            if (activeView) activeView.classList.remove('hidden-view');            // Actualizar estado estético de botones del menú            document.querySelectorAll('.nav-btn').forEach(btn => {                btn.classList.remove('bg-corp-light', 'text-white');                btn.classList.add('text-slate-300');            });            const currentNavBtn = document.getElementById(`nav-${viewName}`);            if (currentNavBtn) {                currentNavBtn.classList.add('bg-corp-light', 'text-white');                currentNavBtn.classList.remove('text-slate-300');            }            window.scrollTo({ top: 0, behavior: 'smooth' });        }        // Generación y descarga directa del archivo DXF para AutoCAD        function downloadDXF() {            const dxfContent = `0SECTION2HEADER0ENDSEC0SECTION2ENTITIES0LINE80100.0200.0300.011137.2210.0310.00LINE8010137.2200.0300.011137.22145.7310.00LINE8010137.22045.7300.0110.02145.7310.00LINE80100.02045.7300.0110.0210.0310.00ENDSEC0EOF`;            const blob = new Blob([dxfContent], { type: 'application/dxf' });            const url = URL.createObjectURL(blob);            const a = document.createElement('a');            a.href = url;            a.download = 'extintorcomms.dxf';            document.body.appendChild(a);            a.click();            document.body.removeChild(a);            URL.revokeObjectURL(url);        }        // Inicializar componentes al cargar la página        document.addEventListener('DOMContentLoaded', () => {            renderHomeCards();            renderRegistros();        });    </script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASST 2026 - COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corp: {
+                            dark: '#0f172a',    // Slate 900
+                            blue: '#1e3a8a',    // Blue 900
+                            light: '#1d4ed8',   // Blue 700
+                            bg: '#f8fafc',      // Slate 50
+                            border: '#e2e8f0',  // Slate 200
+                        },
+                        status: {
+                            green: '#16a34a',
+                            yellow: '#ca8a04',
+                            red: '#dc2626'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-view {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50">
+
+    <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->
+    <nav class="bg-corp-dark text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo/Marca -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white">
+                        <i class="fa-solid fa-shield-halved text-xl"></i>
+                    </div>
+                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                        PASST 2026
+                    </span>
+                </div>
+
+                <!-- Menú Escritorio -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-2">
+                        <button onclick="navigate('home')" id="nav-home" class="nav-btn bg-corp-light text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">
+                            <i class="fa-solid fa-house mr-1.5"></i> Inicio / PASST
+                        </button>
+                        <button onclick="navigate('nosotros')" id="nav-nosotros" class="nav-btn text-slate-300 hover:bg-slate-800 hover:text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all">
+                            <i class="fa-solid fa-users mr-1.5"></i> Quiénes Somos
+                        </button>
+                        <button onclick="navigate('registros')" id="nav-registros" class="nav-btn text-slate-300 hover:bg-slate-800 hover:text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all">
+                            <i class="fa-solid fa-folder-open mr-1.5"></i> Registros SST
+                        </button>
+                        <button onclick="navigate('extintores')" id="nav-extintores" class="nav-btn text-slate-300 hover:bg-slate-800 hover:text-white px-3.5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-fire-extinguisher text-amber-400"></i> Guía Extintores
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Menú Móvil -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button onclick="navigate('home')" class="text-slate-300 hover:text-white p-2"><i class="fa-solid fa-house text-lg"></i></button>
+                    <button onclick="navigate('nosotros')" class="text-slate-300 hover:text-white p-2"><i class="fa-solid fa-users text-lg"></i></button>
+                    <button onclick="navigate('registros')" class="text-slate-300 hover:text-white p-2"><i class="fa-solid fa-folder-open text-lg"></i></button>
+                    <button onclick="navigate('extintores')" class="text-amber-400 hover:text-white p-2"><i class="fa-solid fa-fire-extinguisher text-lg"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ENCABEZADO CORPORATIVO CON LOGOS E INSTITUCIONES -->
+    <header class="bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                
+                <!-- Logos de la Institución y Empresa -->
+                <div class="flex flex-wrap items-center justify-center gap-3 shrink-0">
+                    <div class="w-32 h-16 border border-slate-200 rounded-lg flex items-center justify-center bg-white p-2 shadow-xs hover:border-blue-300 transition-colors">
+                        <img src="Logo.jpg" onerror="this.src='https://via.placeholder.com/150x80?text=Empresa+S.A.C'" alt="Logo Empresa" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="w-32 h-16 border border-slate-200 rounded-lg flex items-center justify-center bg-white p-2 shadow-xs hover:border-blue-300 transition-colors">
+                        <img src="logoFII.png" onerror="this.src='https://via.placeholder.com/150x80?text=FII'" alt="Logo FII" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="w-32 h-16 border border-slate-200 rounded-lg flex items-center justify-center bg-white p-2 shadow-xs hover:border-blue-300 transition-colors">
+                        <img src="logoEPISST.png" onerror="this.src='https://via.placeholder.com/150x80?text=EPISST'" alt="Logo EPISST" class="max-h-full max-w-full object-contain">
+                    </div>
+                </div>
+
+                <!-- Título Principal y Acciones -->
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-block bg-blue-50 text-corp-light text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-2 border border-blue-100">
+                        COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-corp-dark tracking-tight leading-tight">
+                        Plan Anual de Seguridad y Salud en el Trabajo (PASST)
+                    </h1>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl">
+                        Desarrollado como proyecto aplicativo para el curso de <strong>Prevención de Accidentes Laborales</strong>.
+                    </p>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-wrap items-center justify-center gap-2.5 shrink-0">
+                    <button onclick="navigate('extintores')" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-fire-extinguisher text-base"></i> GUÍA DE EXTINTORES
+                    </button>
+                    <a href="passt-2026-completo.pdf" download class="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-file-pdf text-base"></i> Descargar PASST
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL MULTI-VISTA -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- VISTA 1: INICIO / ESTRUCTURA PASST -->
+<div id="view-home" class="fade-in space-y-6">
+
+    <!-- HERO BANNER CON IMAGEN ANIMADA -->
+    <div class="relative overflow-hidden rounded-2xl bg-slate-900 text-white min-h-[420px] flex items-center p-8 md:p-12 shadow-xl border border-slate-800">
+        
+        <!-- Imagen de Fondo Animada (Asegúrate de cambiar la URL de la imagen) -->
+        <div class="hero-bg-animated absolute inset-0 bg-cover bg-center brightness-75 scale-105" 
+             style="background-image: url('imprincipal.jpg)"></div>
+        
+        <!-- Superposición oscura para proteger la lectura del texto -->
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-transparent"></div>
+
+        <!-- Contenido Frontal -->
+        <div class="relative z-10 max-w-2xl space-y-4">
+            
+            <!-- Badge / Etiqueta -->
+            <div>
+                <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 shadow-sm">
+                    <i class="fa-solid fa-calendar-days text-blue-400"></i> Periodo lectivo: 2026
+                </span>
+            </div>
+
+            <!-- Título y Texto -->
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white drop-shadow-md leading-tight">
+                Plan anual de Seguridad y Salud en el trabajo PASST 2026
+            </h2>
+            <p class="text-slate-200 text-base md:text-lg leading-relaxed max-w-xl">
+                Explore cada componente del plan para revisar los objetivos, matriz IPERC y documentos anexos de forma clara e interactiva.
+            </p>
+
+            <!-- Botones -->
+            <div class="flex flex-wrap gap-3 pt-2">
+                <a href="#cards-container" class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-5 py-2.5 rounded-lg shadow-md transition transform active:scale-95">
+                    Ver Componentes
+                </a>
+                <button class="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm font-medium text-sm px-5 py-2.5 rounded-lg transition">
+                    Saber más
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tarjetas de Componentes (Inyectadas vía JS) -->
+    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+
+</div>
+
+<!-- CSS PARA LA ANIMACIÓN (Puedes poner esto en tu archivo CSS o dentro de un tag <style>) -->
+<style>
+    @keyframes heroZoom {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.12); /* Hace zoom suave del 12% */
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .hero-bg-animated {
+        /* Aplica la animación durante 20 segundos de forma infinita y suave */
+        animation: heroZoom 20s ease-in-out infinite;
+        will-change: transform;
+    }
+</style>
+
+    <!-- Tarjetas de Componentes (Inyectadas vía JS) -->
+    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+
+</div>
+
+        <!-- VISTA 2: QUIÉNES SOMOS (INTEGRANTES Y PROYECTO) -->
+        <div id="view-nosotros" class="hidden-view fade-in space-y-6">
+            <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+                <div class="bg-corp-dark text-white p-6 sm:p-8">
+                    <h2 class="text-2xl font-extrabold">Sobre el Equipo Desarrollador</h2>
+                    <p class="text-slate-300 text-sm mt-2 max-w-3xl">
+                        Somos estudiantes universitarios comprometidos con la Prevención de Accidentes Laborales y la implementación técnica de Sistemas de Gestión de SST aplicados al sector de Telecomunicaciones y Desarrollo de Sistemas.
+                    </p>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <!-- Foto de Grupo -->
+                        <div class="lg:col-span-5">
+                            <div class="rounded-xl overflow-hidden border border-slate-200 shadow-md bg-slate-100 relative group">
+                                <img src="FotoGrupal.jpg" onerror="this.src='https://via.placeholder.com/600x400?text=Foto+del+Equipo+de+Trabajo'" alt="Foto Grupal del Equipo" class="w-full h-64 object-cover">
+                                <div class="absolute inset-0 bg-corp-dark/20 group-hover:bg-transparent transition-colors"></div>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Integrantes -->
+                        <div class="lg:col-span-7 space-y-4">
+                            <h3 class="text-lg font-bold text-corp-dark border-b border-slate-200 pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-user-graduate text-corp-light"></i> Integrantes del Proyecto
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                    <span class="text-xs font-semibold text-slate-800">Condorcuya Flores, Gerardo Manuel</span>
+                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170109</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                    <span class="text-xs font-semibold text-slate-800">Siesquen Roman, Gina Maryely</span>
+                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170304</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                    <span class="text-xs font-semibold text-slate-800">Arias Benavides, Leonardo Miguel</span>
+                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170278</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                    <span class="text-xs font-semibold text-slate-800">Delgado Jonis, Kassandra Mirella</span>
+                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170288</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 sm:col-span-2">
+                                    <span class="text-xs font-semibold text-slate-800">Vite Pimentel, Emmy</span>
+                                    <span class="font-mono text-[10px] bg-white px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">23170122</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Datos de la Empresa Estudiada -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                        <h4 class="font-bold text-corp-blue text-base mb-2">Acerca de la Empresa Evaluada</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            <strong>COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</strong> es una empresa orientada a soluciones tecnológicas, infraestructura de redes e ingeniería de sistemas. Este portal interactivo recopila las políticas, análisis de riesgos y planes de contingencia para promover una cultura de prevención acorde a la Ley de Seguridad y Salud en el Trabajo N° 29783.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA 3: DETALLE DEL COMPONENTE -->
+        <div id="view-detalle" class="hidden-view fade-in space-y-4">
+            <button onclick="navigate('home')" class="text-corp-light hover:text-corp-blue font-semibold transition-colors flex items-center bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-xs hover:shadow-sm text-sm">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Volver a la estructura
+            </button>
+
+            <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+                <div class="bg-corp-dark text-white p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="detalle-num" class="bg-blue-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-black text-xl shadow-inner shrink-0">00</div>
+                        <div>
+                            <h2 id="detalle-titulo" class="text-xl font-bold">Título del Componente</h2>
+                            <p id="detalle-desc" class="text-slate-300 text-xs sm:text-sm">Descripción breve</p>
+                        </div>
+                    </div>
+                    <a id="detalle-pdf-btn" href="#" download class="shrink-0 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center">
+                        <i class="fa-solid fa-file-pdf mr-2 text-base"></i> Descargar Anexo PDF
+                    </a>
+                </div>
+                
+                <div id="detalle-contenido" class="p-6 sm:p-8 leading-relaxed text-sm text-slate-700">
+                    <!-- Contenido dinámico -->
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA 4: REGISTROS OBLIGATORIOS -->
+        <div id="view-registros" class="hidden-view fade-in space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-corp-dark">Registros Obligatorios de SST</h2>
+                <p class="text-slate-500 text-sm mt-0.5">Listado de los 8 registros exigidos normativamente para el Sistema de Gestión (RM 050-2013-TR).</p>
+            </div>
+            
+            <div id="registros-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+        </div>
+
+        <!-- VISTA 5: GUÍA DE EXTINTORES Y PLANO CAD -->
+        <div id="view-extintores" class="hidden-view fade-in space-y-6">
+            <div class="bg-white rounded-xl shadow-xs border border-slate-200 overflow-hidden">
+                <div class="bg-amber-600 text-white p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="bg-amber-700 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-2xl shadow-inner">
+                            <i class="fa-solid fa-fire-extinguisher"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-extrabold">GUÍA DE SELECCIÓN Y COLOCACIÓN DE EXTINTORES</h2>
+                            <p class="text-amber-100 text-xs">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C (NFPA 10 / NTP 350.043)</p>
+                        </div>
+                    </div>
+
+                    <button onclick="downloadDXF()" class="shrink-0 bg-corp-dark hover:bg-slate-800 text-white px-4 py-2.5 rounded-lg text-xs font-bold transition-all shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down text-base text-yellow-400"></i>
+                        <span>DESCARGAR PLANO DXF</span>
+                    </button>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-8">
+                    <!-- Visualizador CAD en SVG -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-inner text-white">
+                        <div class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3 border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-compass-drafting text-yellow-400 text-xl"></i>
+                                <div>
+                                    <h3 class="font-bold text-sm text-white">PLANO DE DISTRIBUCIÓN CAD (VISTA INTERACTIVA)</h3>
+                                    <p class="text-[11px] text-slate-400">Planta General: 137.2 m × 45.7 m | Cobertura de Extintores R = 22.9 m</p>
+                                </div>
+                            </div>
+                            <button onclick="downloadDXF()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded font-bold transition-all flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Guardar extintorcomms.dxf
+                            </button>
+                        </div>
+
+                        <!-- Gráfico SVG -->
+                        <div class="w-full bg-black rounded-lg p-3 border border-slate-800 overflow-x-auto flex justify-center">
+                            <svg viewBox="-25 -50 240 120" class="w-full max-w-5xl h-auto min-w-[650px] font-sans">
+                                <defs>
+                                    <pattern id="cadGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+                                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#1e293b" stroke-width="0.3"/>
+                                    </pattern>
+                                </defs>
+                                <rect x="-25" y="-50" width="240" height="120" fill="#030712"/>
+                                <rect x="-25" y="-50" width="240" height="120" fill="url(#cadGrid)"/>
+
+                                <text x="10" y="-38" fill="#38bdf8" font-size="3.8" font-weight="bold">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</text>
+                                <text x="10" y="-32" fill="#e2e8f0" font-size="2.8" font-weight="bold">PLANO DE DISTRIBUCIÓN DE EXTINTORES - PLANTA GENERAL</text>
+                                <text x="10" y="-27" fill="#94a3b8" font-size="2.2">Edificación: 137.2 m x 45.7 m | Radio de Cobertura: 22.9 m (NFPA 10)</text>
+
+                                <!-- Contorno Edificio -->
+                                <rect x="0" y="0" width="137.2" height="45.7" fill="#1e293b" fill-opacity="0.4" stroke="#ffffff" stroke-width="1.2"/>
+
+                                <!-- Arcos Cobertura -->
+                                <path d="M 0 45.7 A 22.9 22.9 0 0 0 45.7667 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 45.7 45.7 A 22.9 22.9 0 0 0 91.5 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 91.4333 45.7 A 22.9 22.9 0 0 0 137.2333 45.7" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+
+                                <path d="M 0 0 A 22.9 22.9 0 0 1 45.7667 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 45.7 0 A 22.9 22.9 0 0 1 91.5 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+                                <path d="M 91.4333 0 A 22.9 22.9 0 0 1 137.2333 0" fill="#06b6d4" fill-opacity="0.1" stroke="#22d3ee" stroke-width="0.5" stroke-dasharray="1.5,1.5"/>
+
+                                <!-- Puntos de Extintores -->
+                                <g>
+                                    <circle cx="22.86" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <text x="20.3" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-01</text>
+
+                                    <circle cx="68.6" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <text x="66.1" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-02</text>
+
+                                    <circle cx="114.3" cy="45.7" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <text x="111.8" y="51" fill="#f87171" font-size="2.5" font-weight="bold">E-03</text>
+
+                                    <circle cx="22.86" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <text x="20.3" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-04</text>
+
+                                    <circle cx="68.6" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <text x="66.1" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-05</text>
+
+                                    <circle cx="114.3" cy="0" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.5"/>
+                                    <text x="111.8" y="-3" fill="#f87171" font-size="2.5" font-weight="bold">E-06</text>
+                                </g>
+
+                                <!-- Cotas -->
+                                <line x1="0" y1="-12" x2="137.2" y2="-12" stroke="#4ade80" stroke-width="0.6"/>
+                                <text x="50" y="-14" fill="#4ade80" font-size="2.8" font-weight="bold">LARGO TOTAL: 137.2 m</text>
+
+                                <line x1="-12" y1="0" x2="-12" y2="45.7" stroke="#4ade80" stroke-width="0.6"/>
+                                <text x="-18" y="24" fill="#4ade80" font-size="2.8" font-weight="bold" transform="rotate(-90 -18,24)">ANCHO: 45.7 m</text>
+
+                                <!-- Leyenda -->
+                                <rect x="145" y="0" width="50" height="45.7" fill="#0f172a" stroke="#e2e8f0" stroke-width="0.6"/>
+                                <text x="148" y="6" fill="#facc15" font-size="2.5" font-weight="bold">LEYENDA CAD</text>
+                                <circle cx="152" cy="15" r="1.8" fill="#ef4444" stroke="#ffffff" stroke-width="0.4"/>
+                                <text x="156" y="16" fill="#ffffff" font-size="2">EXTINTOR PORTÁTIL</text>
+                                <text x="148" y="34" fill="#94a3b8" font-size="1.8">E-01 a E-06: Ubicaciones</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Reseña Técnica -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-4">
+                        <h3 class="text-base font-bold text-corp-dark flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-corp-light"></i> Criterios de Selección Técnicos
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Bajo las normas <strong>NFPA 10</strong> y la <strong>NTP 350.043</strong>, los equipos portátiles han sido dimensionados según la tipología de riesgo presente en las salas de servidores, oficinas administrativas y laboratorios de prueba.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+                                <span class="text-[10px] font-extrabold uppercase text-red-600 block mb-1">Áreas Generales</span>
+                                <h4 class="font-bold text-slate-800 text-sm">PQS ABC (20 lbs)</h4>
+                                <p class="text-xs text-slate-600 mt-1">Apto para amagamientos combustibles sólidos (A), líquidos (B) y equipos energizados (C).</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+                                <span class="text-[10px] font-extrabold uppercase text-blue-600 block mb-1">Data Centers y Racks</span>
+                                <h4 class="font-bold text-slate-800 text-sm">CO2 (10 lbs)</h4>
+                                <p class="text-xs text-slate-600 mt-1">Agente limpio dieléctrico que no deja residuos ni daña circuitos electrónicos sensibles.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+                                <span class="text-[10px] font-extrabold uppercase text-green-600 block mb-1">Distancia Peatonal</span>
+                                <h4 class="font-bold text-slate-800 text-sm">Máx. 22.9 metros</h4>
+                                <p class="text-xs text-slate-600 mt-1">Recorrido máximo garantizado hacia cualquier extintor más cercano.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="bg-corp-dark text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-bold text-white">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C</p>
+                <p class="text-slate-400 mt-0.5">Proyecto de Prevención de Accidentes Laborales - FII / EPISST © 2026</p>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="navigate('home')" class="hover:text-white transition-colors">Estructura</button>
+                <button onclick="navigate('nosotros')" class="hover:text-white transition-colors">Equipo</button>
+                <button onclick="navigate('registros')" class="hover:text-white transition-colors">Registros</button>
+                <button onclick="navigate('extintores')" class="hover:text-white transition-colors">Guía CAD</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // Datos de la estructura del PASST
+        const componentesPASST = [
+            { num: "01", titulo: "Alcance y Objetivos", desc: "Metas e indicadores de gestión en SST para el periodo 2026.", pdf: "anexo_01.pdf", detalle: "Definición clara del alcance del Sistema de Gestión para todas las sedes operativas y administrativas de la empresa, alineado a reducir la tasa de accidentalidad a cero." },
+            { num: "02", titulo: "Política del SG-SST", desc: "Compromisos de la alta dirección con la salud ocupacional.", pdf: "anexo_02.pdf", detalle: "Declaración firmada de la Gerencia para proveer recursos, cumplir leyes vigentes y fomentar la participación activa de los colaboradores." },
+            { num: "03", titulo: "Matriz IPERC", desc: "Identificación de Peligros, Evaluación de Riesgos y Controles.", pdf: "anexo_03.pdf", detalle: "Evaluación exhaustiva por puestos de trabajo, contemplando riesgos de ergonomía, electrocución y caídas en instalación de redes." },
+            { num: "04", titulo: "Comité de SST", desc: "Organización del Subcomité e integrantes paritarios.", pdf: "anexo_04.pdf", detalle: "Estructura organizativa, actas de constitución, funciones y cronograma de reuniones ordinarias mensuales." },
+            { num: "05", titulo: "Capacitaciones", desc: "Programa Anual con las 4 capacitaciones mínimas de ley.", pdf: "anexo_05.pdf", detalle: "Plan detallado con talleres sobre uso de extintores, primeros auxilios, ergonomía en oficinas y riesgos eléctricos." },
+            { num: "06", titulo: "Plan de Emergencias", desc: "Procedimientos de respuesta ante incendios y sismos.", pdf: "anexo_06.pdf", detalle: "Organización de brigadas, rutas de evacuación, puntos de encuentro y simulación periódica de emergencias." }
+        ];
+
+        // Datos de los 8 Registros Obligatorios
+        const registrosSST = [
+            { titulo: "1. Accidentes e Incidentes", desc: "Registro de accidentes de trabajo, enfermedades ocupacionales e incidentes peligrosos.", icono: "fa-triangle-exclamation" },
+            { titulo: "2. Exámenes Médicos", desc: "Registro de exámenes médicos ocupacionales (EMO) de ingreso, periódicos y de retiro.", icono: "fa-notes-medical" },
+            { titulo: "3. Monitoreos Ambientales", desc: "Monitoreo de agentes físicos, químicos, biológicos, ergonómicos y psicosociales.", icono: "fa-chart-line" },
+            { titulo: "4. Inspecciones Internas", desc: "Inspecciones de seguridad, equipos de protección y condiciones de trabajo.", icono: "fa-clipboard-check" },
+            { titulo: "5. Estadísticas de SST", desc: "Indicadores de frecuencia, gravedad y accidentabilidad mensual/anual.", icono: "fa-square-poll-vertical" },
+            { titulo: "6. Equipos de Seguridad", desc: "Registro de entrega de EPPs y equipos de emergencia a todo el personal.", icono: "fa-head-side-mask" },
+            { titulo: "7. Inducción y Capacitación", desc: "Constancias de entrenamiento, capacitaciones y simulacros realizados.", icono: "fa-chalkboard-user" },
+            { titulo: "8. Auditorías de SST", desc: "Resultados e informes de auditorías internas y externas del SG-SST.", icono: "fa-file-signature" }
+        ];
+
+        // Renderizado de tarjetas de Inicio
+        function renderHomeCards() {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = componentesPASST.map((c, i) => `
+                <div class="bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold bg-blue-50 text-blue-700 px-2.5 py-1 rounded-md border border-blue-100">MÓDULO ${c.num}</span>
+                            <i class="fa-solid fa-folder text-slate-300"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base mb-1">${c.titulo}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">${c.desc}</p>
+                    </div>
+                    <button onclick="verDetalle(${i})" class="mt-4 w-full bg-slate-50 hover:bg-blue-50 text-corp-light font-semibold text-xs py-2 rounded-lg border border-slate-200 transition-colors flex items-center justify-center gap-1.5">
+                        <span>Ver detalles</span>
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Renderizado de tarjetas de Registros Obligatorios
+        function renderRegistros() {
+            const container = document.getElementById('registros-container');
+            container.innerHTML = registrosSST.map(r => `
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 bg-blue-50 text-corp-light rounded-lg flex items-center justify-center text-lg mb-3">
+                            <i class="fa-solid ${r.icono}"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-sm mb-1.5">${r.titulo}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">${r.desc}</p>
+                    </div>
+                    <span class="mt-4 text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 text-center py-1 rounded-md">OBLIGATORIO RM 050-2013-TR</span>
+                </div>
+            `).join('');
+        }
+
+        // Ver detalle de un módulo
+        function verDetalle(index) {
+            const item = componentesPASST[index];
+            document.getElementById('detalle-num').innerText = item.num;
+            document.getElementById('detalle-titulo').innerText = item.titulo;
+            document.getElementById('detalle-desc').innerText = item.desc;
+            document.getElementById('detalle-contenido').innerHTML = `<p>${item.detalle}</p>`;
+            document.getElementById('detalle-pdf-btn').href = item.pdf;
+            
+            navigate('detalle');
+        }
+
+        // Sistema de Navegación entre Pestañas
+        function navigate(viewName) {
+            const views = ['home', 'nosotros', 'detalle', 'registros', 'extintores'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden-view');
+            });
+
+            const activeView = document.getElementById(`view-${viewName}`);
+            if (activeView) activeView.classList.remove('hidden-view');
+
+            // Actualizar estado estético de botones del menú
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-corp-light', 'text-white');
+                btn.classList.add('text-slate-300');
+            });
+
+            const currentNavBtn = document.getElementById(`nav-${viewName}`);
+            if (currentNavBtn) {
+                currentNavBtn.classList.add('bg-corp-light', 'text-white');
+                currentNavBtn.classList.remove('text-slate-300');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Generación y descarga directa del archivo DXF para AutoCAD
+        function downloadDXF() {
+            const dxfContent = `0
+SECTION
+2
+HEADER
+0
+ENDSEC
+0
+SECTION
+2
+ENTITIES
+0
+LINE
+8
+0
+10
+0.0
+20
+0.0
+30
+0.0
+11
+137.2
+21
+0.0
+31
+0.0
+0
+LINE
+8
+0
+10
+137.2
+20
+0.0
+30
+0.0
+11
+137.2
+21
+45.7
+31
+0.0
+0
+LINE
+8
+0
+10
+137.2
+20
+45.7
+30
+0.0
+11
+0.0
+21
+45.7
+31
+0.0
+0
+LINE
+8
+0
+10
+0.0
+20
+45.7
+30
+0.0
+11
+0.0
+21
+0.0
+31
+0.0
+0
+ENDSEC
+0
+EOF`;
+
+            const blob = new Blob([dxfContent], { type: 'application/dxf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'extintorcomms.dxf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Inicializar componentes al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHomeCards();
+            renderRegistros();
+        });
+    </script>
+</body>
+</html>
