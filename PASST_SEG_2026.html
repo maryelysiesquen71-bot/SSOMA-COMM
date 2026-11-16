@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASST 2026 - UNMSM | EPISST | COMM (SEG)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corp: {
+                            dark: '#0f172a',
+                            blue: '#1e3a8a',
+                            light: '#1d4ed8',
+                            bg: '#f8fafc',
+                            border: '#e2e8f0',
+                        },
+                        status: {
+                            green: '#16a34a',
+                            yellow: '#ca8a04',
+                            red: '#dc2626'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #334155; }
+        .fade-in { animation: fadeIn 0.35s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .hidden-view { display: none !important; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- MENÚ SUPERIOR -->
+    <nav class="bg-corp-dark text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-shield-halved text-blue-400 text-xl"></i>
+                    <span class="font-bold text-lg tracking-tight">PASST 2026 • COMM & UNMSM</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-2">
+                    <button onclick="navigate('home')" id="nav-home" class="nav-btn bg-corp-light text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio / Estructura PASST</button>
+                    <button onclick="navigate('registros')" id="nav-registros" class="nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">8 Registros SST</button>
+                    <button onclick="navigate('documentos')" id="nav-documentos" class="nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Documentos (MDR / RISST)</button>
+                </div>
+                <div class="md:hidden flex items-center gap-3">
+                    <button onclick="navigate('home')" class="text-gray-300 hover:text-white"><i class="fa-solid fa-home"></i></button>
+                    <button onclick="navigate('registros')" class="text-gray-300 hover:text-white"><i class="fa-solid fa-folder-open"></i></button>
+                    <button onclick="navigate('documentos')" class="text-gray-300 hover:text-white"><i class="fa-solid fa-file-pdf"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ENCABEZADO CON COVER PANORÁMICO ESTILO NOTION -->
+    <header class="bg-white border-b border-gray-200">
+        <!-- Portada panorámica horizontal (foto_grupal) -->
+        <div class="w-full h-56 md:h-64 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-800 relative overflow-hidden">
+            <img id="banner-grupal" src="foto_grupal.png" alt="Fotografía Grupal - Grupo 8 EPISST" class="w-full h-full object-cover object-center opacity-90">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 sm:left-8 right-4 flex flex-wrap items-center justify-between gap-2 text-white">
+                <span class="bg-blue-600/90 backdrop-blur-sm text-xs font-bold px-3 py-1 rounded-full border border-blue-400/40">
+                    <i class="fa-solid fa-university mr-1.5"></i> UNMSM • Facultad de Ingeniería Industrial • EPISST
+                </span>
+                <span class="bg-slate-900/80 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
+                    U.M. San Cristóbal - Carahuacra (Volcan Cía. Minera S.A.A.)
+                </span>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-6">
+                <!-- Logos Institucionales -->
+                <div class="flex items-center gap-3 shrink-0">
+                    <div class="w-28 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white p-1.5 shadow-sm">
+                        <img src="logoFII.png" onerror="this.src='logoFII.jpg'; this.onerror=null;" alt="Logo FII" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="w-24 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white p-1.5 shadow-sm">
+                        <img src="logoEPISST.jpg" onerror="this.src='logoEPISST.png'; this.onerror=null;" alt="Logo EPISST" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="w-28 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white p-1.5 shadow-sm">
+                        <img src="COMM.png" onerror="this.src='COMM.jpg'; this.onerror=null;" alt="Logo COMM" class="max-h-full max-w-full object-contain">
+                    </div>
+                </div>
+
+                <!-- Títulos y Botones de Acción -->
+                <div class="flex-1 text-center lg:text-left w-full">
+                    <h2 class="text-xs font-bold text-corp-light tracking-widest uppercase mb-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C. (COMM)</h2>
+                    <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 mb-3">
+                        <h1 class="text-2xl md:text-3xl font-extrabold text-corp-dark">Plan Anual de Seguridad y Salud en el Trabajo (PASST)</h1>
+                        
+                        <div class="flex flex-wrap items-center justify-center xl:justify-end gap-2 shrink-0">
+                            <button onclick="openDocumentModal('SEG', 'Plan Anual de SST (SEG.pdf)')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm flex items-center">
+                                <i class="fa-solid fa-file-pdf mr-1.5 text-sm"></i> Ver SEG.pdf
+                            </button>
+                            <button onclick="openDocumentModal('MDR', 'Mapa de Riesgos (MDR)')" class="bg-corp-light hover:bg-corp-blue text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm flex items-center">
+                                <i class="fa-solid fa-map-location-dot mr-1.5 text-sm"></i> Ver MDR
+                            </button>
+                            <button onclick="openDocumentModal('RISST', 'Reglamento Interno de SST (RISST)')" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm flex items-center">
+                                <i class="fa-solid fa-book mr-1.5 text-sm"></i> Ver RISST
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-2">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">AÑO: 2026</span>
+                        <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded border border-slate-200">Curso: Prevención y Control de Riesgos Laborales y Ambientales</span>
+                        <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded border border-slate-200">Docente: Dr. Edito Luis Rojas Linares</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de Integrantes Grupo 8 -->
+            <div class="mt-5 pt-4 border-t border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 bg-slate-50 px-4 py-3 rounded-lg border border-slate-200">
+                    <span class="text-xs font-extrabold text-corp-dark uppercase tracking-wider shrink-0">
+                        <i class="fa-solid fa-users text-corp-light mr-1.5"></i> Grupo 8 — Autores:
+                    </span>
+                    <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-700 font-medium">
+                        <span>• Condorcuya Flores, Gerardo Manuel <strong class="text-corp-light">(23170109)</strong></span>
+                        <span>• Siesquen Roman, Gina Maryely <strong class="text-corp-light">(23170304)</strong></span>
+                        <span>• Arias Benavides, Leonardo Miguel <strong class="text-corp-light">(23170278)</strong></span>
+                        <span>• Delgado Jonis, Kassandra Mirella <strong class="text-corp-light">(23170288)</strong></span>
+                        <span>• Vite Pimentel, Emmy Hilary <strong class="text-corp-light">(23170122)</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full relative">
+
+        <!-- VISTA 1: ESTRUCTURA PASST -->
+        <div id="view-estructura" class="fade-in">
+            <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                <div>
+                    <h2 class="text-2xl font-bold text-corp-dark">Estructura del Plan Anual de SST (SEG)</h2>
+                    <p class="text-gray-500 text-sm mt-1">Seleccione un componente para visualizar su desarrollo técnico o abrir los documentos adjuntos.</p>
+                </div>
+            </div>
+            
+            <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        </div>
+
+        <!-- VISTA 2: DETALLE DEL COMPONENTE -->
+        <div id="view-detalle" class="hidden-view fade-in">
+            <div class="mb-6 flex justify-between items-center">
+                <button onclick="navigate('home')" class="text-corp-light hover:text-corp-blue font-medium transition-colors flex items-center bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm hover:shadow">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Volver a la estructura
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-corp-dark text-white px-6 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="detalle-num" class="bg-white/20 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl border border-white/30">00</div>
+                        <div>
+                            <h2 id="detalle-titulo" class="text-xl font-bold">Título del Componente</h2>
+                            <p id="detalle-desc" class="text-gray-300 text-sm">Descripción breve</p>
+                        </div>
+                    </div>
+                    <button id="detalle-doc-btn" class="shrink-0 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-md flex items-center">
+                        <i class="fa-solid fa-eye mr-2"></i> Visualizar Documento
+                    </button>
+                </div>
+                
+                <div id="detalle-contenido" class="p-6 md:p-8"></div>
+            </div>
+        </div>
+
+        <!-- VISTA 3: 8 REGISTROS OBLIGATORIOS -->
+        <div id="view-registros" class="hidden-view fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-corp-dark">Consolidación de los 8 Registros Obligatorios del SGSST</h2>
+                <p class="text-gray-500 text-sm mt-1">Conforme a la Ley N.° 29783, D.S. N.° 005-2012-TR (Art. 35) y R.M. N.° 050-2013-TR.</p>
+            </div>
+            
+            <div id="registros-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+
+        <!-- VISTA 4: DOCUMENTOS COMPLEMENTARIOS (SEG, MDR, RISST) -->
+        <div id="view-documentos" class="hidden-view fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-corp-dark">Visor de Documentos Oficiales (SEG, MDR y RISST)</h2>
+                <p class="text-gray-500 text-sm mt-1">Visualice directamente en pantalla o descargue los documentos base y complementarios del sistema.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-red-50 text-red-600 rounded-lg flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-corp-dark mb-2">Plan Anual de SST (SEG.pdf)</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">Documento completo (179 páginas) con Línea Base 2024, Política RD-PL-01 v.08, Comité de SST, Matriz IPERC 5x5, PETS-COM-MIN-01 al 08, PETAR, Plan de Emergencias y Registros.</p>
+                    </div>
+                    <button onclick="openDocumentModal('SEG', 'Plan Anual de SST (SEG.pdf)')" class="w-full bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-lg text-sm font-bold transition-colors">
+                        <i class="fa-solid fa-eye mr-2"></i> Abrir SEG
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-50 text-corp-light rounded-lg flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-corp-dark mb-2">Mapa de Riesgos (MDR)</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">Representación gráfica con simbología normalizada de peligros, riesgos, equipos de emergencia y rutas de evacuación en instalaciones y labores (RP 742 - Nivel 820).</p>
+                    </div>
+                    <button onclick="openDocumentModal('MDR', 'Mapa de Riesgos (MDR)')" class="w-full bg-corp-light hover:bg-corp-blue text-white py-2.5 rounded-lg text-sm font-bold transition-colors">
+                        <i class="fa-solid fa-eye mr-2"></i> Abrir MDR
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-corp-dark mb-2">Reglamento Interno SST (RISST)</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">Normativa interna obligatoria aprobada por el CSST (2025-2027) que regula derechos, obligaciones, estándares operativos y medidas disciplinarias preventivas.</p>
+                    </div>
+                    <button onclick="openDocumentModal('RISST', 'Reglamento Interno de SST (RISST)')" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-2.5 rounded-lg text-sm font-bold transition-colors">
+                        <i class="fa-solid fa-eye mr-2"></i> Abrir RISST
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL VISOR INTERACTIVO DE DOCUMENTOS E IMÁGENES -->
+    <div id="doc-modal" class="hidden-view fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[88vh] flex flex-col overflow-hidden border border-slate-300">
+            <div class="bg-corp-dark text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-lines text-blue-400 text-lg"></i>
+                    <h3 id="modal-title" class="font-bold text-base md:text-lg">Visor de Documento</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a id="modal-download" href="#" download class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">
+                        <i class="fa-solid fa-download mr-1"></i> Descargar
+                    </a>
+                    <button onclick="closeDocumentModal()" class="text-gray-300 hover:text-white text-xl px-2">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="modal-body" class="flex-1 bg-slate-100 relative overflow-auto flex items-center justify-center p-2">
+                <!-- Se inyecta iframe PDF o imagen dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-500">
+            UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS • FACULTAD DE INGENIERÍA INDUSTRIAL • EPISST • 2026
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // Fallback de banner grupal si es .jpg o .jpeg
+        const bannerImg = document.getElementById('banner-grupal');
+        bannerImg.onerror = function() {
+            if (this.src.endsWith('.png')) this.src = 'foto_grupal.jpg';
+            else if (this.src.endsWith('.jpg')) this.src = 'foto_grupal.jpeg';
+            else this.style.display = 'none';
+        };
+
+        // Visor inteligente de archivos (soporta .pdf, .png, .jpg, .jpeg)
+        function openDocumentModal(baseName, title) {
+            const modal = document.getElementById('doc-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalDownload = document.getElementById('modal-download');
+
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `<div class="text-center text-slate-500"><i class="fa-solid fa-spinner fa-spin text-3xl mb-2"></i><p class="text-sm">Cargando archivo <strong>${baseName}</strong>...</p></div>`;
+            modal.classList.remove('hidden-view');
+
+            const candidates = [`${baseName}.pdf`, `${baseName}.png`, `${baseName}.jpg`, `${baseName}.jpeg`];
+            
+            function tryLoad(index) {
+                if (index >= candidates.length) {
+                    modalDownload.href = `${baseName}.pdf`;
+                    modalBody.innerHTML = `
+                        <div class="text-center p-8 bg-white rounded-xl border border-dashed border-slate-300 max-w-md">
+                            <i class="fa-solid fa-folder-open text-4xl text-amber-500 mb-3"></i>
+                            <h4 class="font-bold text-slate-800 text-base mb-1">Archivo "${baseName}" listo para vincular</h4>
+                            <p class="text-xs text-slate-500 mb-4">Coloca el archivo <strong>${baseName}.pdf</strong> (o .png / .jpg) en la misma carpeta que este HTML para visualizarlo aquí mismo.</p>
+                            <a href="${baseName}.pdf" target="_blank" class="inline-block bg-corp-light text-white px-4 py-2 rounded-lg text-xs font-bold">Intentar abrir enlace directo</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const file = candidates[index];
+                fetch(file, { method: 'HEAD' })
+                    .then(res => {
+                        if (res.ok) {
+                            modalDownload.href = file;
+                            if (file.endsWith('.pdf')) {
+                                modalBody.innerHTML = `<iframe src="${file}" class="w-full h-full rounded-lg border-0 bg-white"></iframe>`;
+                            } else {
+                                modalBody.innerHTML = `<img src="${file}" alt="${title}" class="max-w-full max-h-full object-contain rounded-lg shadow-md">`;
+                            }
+                        } else {
+                            tryLoad(index + 1);
+                        }
+                    })
+                    .catch(() => {
+                        // Si se abre con protocolo file:// donde fetch HEAD puede restringirse, cargamos iframe PDF por defecto
+                        modalDownload.href = `${baseName}.pdf`;
+                        modalBody.innerHTML = `
+                            <div class="w-full h-full flex flex-col">
+                                <iframe src="${baseName}.pdf" class="w-full flex-1 rounded-lg border-0 bg-white"></iframe>
+                                <div class="bg-slate-800 text-white text-xs px-4 py-2 flex justify-between items-center">
+                                    <span>¿Tu archivo es una imagen?</span>
+                                    <div class="space-x-2">
+                                        <button onclick="document.querySelector('#modal-body').innerHTML='<img src=\\'${baseName}.png\\' class=\\'max-w-full max-h-full object-contain\\'>'" class="underline text-blue-300">Cargar .PNG</button>
+                                        <button onclick="document.querySelector('#modal-body').innerHTML='<img src=\\'${baseName}.jpg\\' class=\\'max-w-full max-h-full object-contain\\'>'" class="underline text-blue-300">Cargar .JPG</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+            }
+
+            tryLoad(0);
+        }
+
+        function closeDocumentModal() {
+            document.getElementById('doc-modal').classList.add('hidden-view');
+            document.getElementById('modal-body').innerHTML = '';
+        }
+
+        // BASE DE DATOS DEL PLAN ANUAL DE SST (SEG.pdf)
+        const componentesPASST = [
+            { 
+                id: '01', title: 'ALCANCE Y FICHA TÉCNICA', icon: 'fa-crosshairs', docBase: 'SEG',
+                desc: 'Delimitación operativa y territorial en U.M. San Cristóbal - Carahuacra.', 
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm text-gray-700 leading-relaxed">Abarca integralmente los procesos de ingeniería, tendido aéreo y subterráneo de fibra óptica dieléctrica, sistemas radiantes <strong>Leaky Feeder</strong>, bandejas portacables, gabinetes herméticos, antenas VHF/UHF, telemetría y mantenimiento eléctrico/electrónico ejecutados por <strong>COMM (RUC 20544048164)</strong> en la <strong>U.M. San Cristóbal - Carahuacra (Volcan Cía. Minera S.A.A.)</strong>, Yauli - Junín (4,000 a 4,750 m.s.n.m.).</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-bold text-corp-dark text-sm mb-1"><i class="fa-solid fa-mountain text-corp-light mr-1.5"></i> Frentes Subterráneos</h4>
+                                <p class="text-xs text-gray-600">Rampa Principal 742 (RP 742), Nivel 820, galerías, cruceros, chimeneas de ventilación, subestaciones y refugios mineros.</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-bold text-corp-dark text-sm mb-1"><i class="fa-solid fa-building text-corp-light mr-1.5"></i> Instalaciones de Superficie</h4>
+                                <p class="text-xs text-gray-600">Salas de control central, cuartos de servidores, talleres electromecánicos, almacenes y casetas de retransmisión.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            { 
+                id: '02', title: 'LÍNEA BASE 2023 - 2024', icon: 'fa-chart-line', docBase: 'SEG',
+                desc: 'Diagnóstico estadístico de HHT e índices de siniestralidad al cierre de 2024.', 
+                content: `
+                    <div class="space-y-6">
+                        <p class="text-sm text-gray-700">Al cierre del ejercicio 2024 se acumularon <strong>46,558.40 Horas Hombre Trabajadas (HHT)</strong> (51,550.45 HHT en 2023), registrándose <strong>0 accidentes mortales, 0 incapacitantes y 0 días perdidos</strong>.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="bg-blue-50 p-5 rounded-lg border border-blue-200 text-center">
+                                <span class="text-xs text-blue-800 font-bold uppercase block mb-1">Índice de Frecuencia (LTIFR)</span>
+                                <span class="text-3xl font-extrabold text-corp-dark">0.00</span>
+                            </div>
+                            <div class="bg-blue-50 p-5 rounded-lg border border-blue-200 text-center">
+                                <span class="text-xs text-blue-800 font-bold uppercase block mb-1">Índice de Severidad (DSIFR)</span>
+                                <span class="text-3xl font-extrabold text-corp-dark">0.00</span>
+                            </div>
+                            <div class="bg-blue-50 p-5 rounded-lg border border-blue-200 text-center">
+                                <span class="text-xs text-blue-800 font-bold uppercase block mb-1">Accidentabilidad Total (TRIFR)</span>
+                                <span class="text-3xl font-extrabold text-corp-dark">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            { 
+                id: '03', title: 'POLÍTICA INTEGRADA SST', icon: 'fa-file-signature', docBase: 'SEG',
+                desc: 'Política Integrada de Gestión RD-PL-01 Versión 08 (15/10/2025).', 
+                content: `
+                    <div class="bg-slate-50 border border-slate-200 p-6 rounded-lg">
+                        <p class="text-sm text-gray-700 mb-4">Formalizada el <strong>15/10/2025</strong> por <strong>Filiberto Jesús Revilla Delgado</strong> (CEO Director) y <strong>Sergio David Gonzales Mendívil</strong> (Gerente General), articulando <strong>ISO 9001:2015, ISO 14001:2015 e ISO 45001:2018</strong> junto con la Ley N.° 29783 y el D.S. N.° 024-2016-EM:</p>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li><i class="fa-solid fa-check text-status-green mr-2"></i> Brindar servicios de telecomunicaciones y automatización de alta calidad y confiabilidad técnica.</li>
+                            <li><i class="fa-solid fa-check text-status-green mr-2"></i> Eliminar peligros y reducir riesgos aplicando estrictamente la jerarquía de controles.</li>
+                            <li><i class="fa-solid fa-check text-status-green mr-2"></i> Proteger el ambiente y prevenir la contaminación en interior mina y superficie.</li>
+                            <li><i class="fa-solid fa-check text-status-green mr-2"></i> Cumplir la legislación nacional vigente y los estándares corporativos de Volcan Cía. Minera S.A.A.</li>
+                            <li><i class="fa-solid fa-check text-status-green mr-2"></i> Promover la capacitación, consulta y participación activa de los trabajadores y el CSST.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            { 
+                id: '04', title: 'OBJETIVOS Y METAS SMART', icon: 'fa-bullseye', docBase: 'SEG',
+                desc: 'Matriz de objetivos estratégicos, metas cuantitativas e indicadores KPI.', 
+                content: `
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left border-collapse border border-gray-200">
+                            <thead class="bg-corp-dark text-white">
+                                <tr><th class="p-3">Objetivo</th><th class="p-3">Indicador</th><th class="p-3">Meta</th><th class="p-3">Frecuencia</th></tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr><td class="p-3 font-medium">Cero accidentes incapacitantes / mortales</td><td class="p-3">LTIFR / DSIFR / TRIFR</td><td class="p-3 font-bold text-green-700">0.00</td><td class="p-3">Mensual</td></tr>
+                                <tr><td class="p-3 font-medium">Operatividad de ambientes y equipos</td><td class="p-3">% Inspecciones realizadas / programadas</td><td class="p-3 font-bold text-blue-700">100% (120/año)</td><td class="p-3">Mensual</td></tr>
+                                <tr><td class="p-3 font-medium">Fortalecer competencias en SST</td><td class="p-3">% Capacitaciones ejecutadas / programadas</td><td class="p-3 font-bold text-blue-700">&ge; 90%</td><td class="p-3">Mensual</td></tr>
+                                <tr><td class="p-3 font-medium">Respuesta eficaz ante emergencias</td><td class="p-3">% Simulacros ejecutados / programados</td><td class="p-3 font-bold text-blue-700">&ge; 80%</td><td class="p-3">Semestral</td></tr>
+                                <tr><td class="p-3 font-medium">Evaluación del SGSST</td><td class="p-3">% Auditorías ejecutadas / programadas</td><td class="p-3 font-bold text-blue-700">100%</td><td class="p-3">Anual</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            },
+            { 
+                id: '05', title: 'COMITÉ DE SST (2025-2027)', icon: 'fa-users', docBase: 'RISST',
+                desc: 'Órgano bipartito y paritario (8 miembros) - Registro SIG/GSS/REG-14.', 
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm text-gray-700">Constituido por <strong>8 miembros</strong> (4 titulares y 4 suplentes). Sesiona ordinariamente 1 vez al mes (convocatoria mínima 24 h antes) y remite copias de actas en máximo 72 horas. Cuenta con <strong>Libro de Actas (REG-TA-GLO-06-05)</strong> y <strong>Libro de Seguridad foliado de 200 páginas</strong> legalizado por Juez de Paz.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-bold text-corp-dark text-sm mb-2">Miembros Titulares</h4>
+                                <ul class="text-xs text-gray-700 space-y-1">
+                                    <li>• <strong>Paul Avila:</strong> Presidente del CSST</li>
+                                    <li>• <strong>Fernanda Salome:</strong> Secretaria del CSST</li>
+                                    <li>• <strong>Santos Ramirez:</strong> Miembro Titular</li>
+                                    <li>• <strong>Jorge Asencios:</strong> Miembro Titular</li>
+                                </ul>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                <h4 class="font-bold text-corp-dark text-sm mb-2">Miembros Suplentes y Funciones</h4>
+                                <ul class="text-xs text-gray-700 space-y-1">
+                                    <li>• <strong>Luis Revilla</strong> y <strong>Danny Romero</strong> (Suplentes)</li>
+                                    <li>• Aprobación del <strong>PASST</strong> y del <strong>RISST</strong></li>
+                                    <li>• Inspecciones mensuales (REG-TA-GLO-08-07) e investigación de incidentes.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            { 
+                id: '06', title: 'GESTIÓN DE RIESGOS (IPERC)', icon: 'fa-triangle-exclamation', docBase: 'SEG',
+                desc: 'Matriz IPERC Línea Base 5x5, IPERC Continuo, ATS y Jerarquía de Controles.', 
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm text-gray-700">Evaluación bidimensional <strong>5 &times; 5</strong> (Probabilidad vs. Severidad) conforme al D.S. 024-2016-EM: <strong>Alto (1–8 Rojo, corrección 0–24 h)</strong>, <strong>Medio (9–15 Amarillo, 0–72 h)</strong> y <strong>Bajo (16–25 Verde, 1 mes)</strong>.</p>
+                        <p class="text-sm text-gray-700"><strong>Orden de Prelación de Controles (Art. 21 Ley 29783):</strong> (1) Eliminación &rarr; (2) Sustitución &rarr; (3) Controles de Ingeniería (Bloqueo LOTO, líneas de vida, guardas) &rarr; (4) Controles Administrativos (PETS, PETAR, <strong>Mapa de Riesgos MDR</strong>) &rarr; (5) EPP certificados.</p>
+                    </div>
+                `
+            },
+            { 
+                id: '07', title: 'MAPA DE RIESGOS (MDR)', icon: 'fa-map-location-dot', docBase: 'MDR',
+                desc: 'Herramienta visual de identificación de peligros en frentes y talleres.', 
+                content: `
+                    <div class="bg-blue-50 border border-blue-200 p-6 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h4 class="font-bold text-corp-dark text-base mb-1">Documento Gráfico Oficial: MDR</h4>
+                            <p class="text-xs text-gray-700 leading-relaxed">El Mapa de Riesgos ubica mediante señalética normalizada los riesgos eléctricos, mecánicos, geomecánicos (caída de rocas), tránsito de maquinaria pesada, rutas de evacuación y ubicación de extintores y refugios mineros.</p>
+                        </div>
+                        <button onclick="openDocumentModal('MDR', 'Mapa de Riesgos (MDR)')" class="shrink-0 bg-corp-light hover:bg-corp-blue text-white px-5 py-2.5 rounded-lg text-xs font-bold shadow">
+                            <i class="fa-solid fa-expand mr-1.5"></i> Ver Mapa de Riesgos
+                        </button>
+                    </div>
+                `
+            },
+            { 
+                id: '08', title: 'ORGANIZACIÓN Y ROLES', icon: 'fa-sitemap', docBase: 'RISST',
+                desc: 'Responsabilidades jerárquicas y ejercicio del Derecho a Decir NO.', 
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <strong class="text-corp-dark block mb-1">Gerencia General y Área SST:</strong>
+                            Aprobar presupuesto, liderar el SGSST, coordinar monitoreos ocupacionales, EMO, auditorías e investigación de incidentes.
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <strong class="text-corp-dark block mb-1">Supervisores y Trabajadores:</strong>
+                            Validar presencialmente el IPERC Continuo antes de cada guardia, cumplir el <strong>RISST</strong> y ejercer el <strong>«Derecho a Decir NO»</strong> ante peligros inminentes.
+                        </div>
+                    </div>
+                `
+            },
+            { 
+                id: '09', title: 'CAPACITACIONES (4 NIVELES)', icon: 'fa-graduation-cap', docBase: 'SEG',
+                desc: 'Programa Anual de Formación (49 temas | Meta >= 90% | S/ 3,500).', 
+                content: `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>1. Inducción General y Específica:</strong> Anexos 4 y 5 D.S. 024-2016-EM, RISST, MDR y reconocimiento en RP 742 y Nivel 820.</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>2. Cursos Básicos (Anexo 6):</strong> IPERC, investigación de incidentes, primeros auxilios (RCP) y lucha contra incendios.</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>3. Capacitación Técnica:</strong> Tendido/fusión de fibra óptica, trabajos en altura (&ge;1.80 m), bloqueo LOTO y escaleras dieléctricas.</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>4. Charlas Diarias de 5 Minutos:</strong> Antes de cada turno sobre peligros de guardia y lecciones aprendidas.</div>
+                    </div>
+                `
+            },
+            { 
+                id: '10', title: 'PETS Y PERMISOS PETAR', icon: 'fa-file-shield', docBase: 'SEG',
+                desc: 'Compendio PETS-COM-MIN-01 al 08 (Anexo 10) y permisos de alto riesgo.', 
+                content: `
+                    <div class="space-y-3 text-xs text-gray-700">
+                        <p><strong>8 PETS Operativos en Mina:</strong> (01) Traslado de personal y equipos, (02) Desate preventivo de rocas sueltas, (03) Tendido y grapado de fibra óptica, (04) Fusión y empalme óptico, (05) Montaje de gabinetes, racks y UPS, (06) Conexionado en tableros eléctricos, (07) Instalación de antenas VHF/UHF, y (08) Uso de escaleras portátiles dieléctricas.</p>
+                        <p><strong>Permisos Escritos (PETAR - Art. 128 D.S. 024-2016-EM):</strong> Obligatorios por turno para Trabajos en Altura (&ge;1.80 m, anclaje 5,000 lbf), Energía Eléctrica (5 reglas de oro + LOTO) y Espacios Confinados.</p>
+                    </div>
+                `
+            },
+            { 
+                id: '11', title: 'INSPECCIONES INTERNAS', icon: 'fa-magnifying-glass', docBase: 'SEG',
+                desc: '120 inspecciones planeadas (10 categorías x 12 meses) + preoperacionales.', 
+                content: `
+                    <p class="text-sm text-gray-700 leading-relaxed">Ejecutadas mediante el formato <strong>REG-TA-GLO-08-07</strong> en 10 áreas críticas (oficinas, vestuarios, extintores, almacenes, escaleras dieléctricas, arneses/líneas de vida, camionetas 4x4, herramientas aisladas 1000 V, botiquines y EPP). Plazo de cierre: <strong>24–48 h</strong> para riesgos altos y <strong>7 días</strong> para riesgos medios.</p>
+                `
+            },
+            { 
+                id: '12', title: 'SALUD OCUPACIONAL (EMO)', icon: 'fa-user-nurse', docBase: 'SEG',
+                desc: 'Vigilancia médica en altitud (>4,000 m.s.n.m.) y control de agentes físicos.', 
+                content: `
+                    <p class="text-sm text-gray-700 leading-relaxed"><strong>Exámenes Médicos Ocupacionales (EMO):</strong> Preocupacional (espirometría ATS, audiometría, radiografía OIT, EKG), Periódico Anual y de Retiro. Control de ruido mecánico según D.S. 024-2016-EM (85 dB para 8 h; doble protección auditiva sobre 100 dB) y prevención disergonómica/psicosocial.</p>
+                `
+            },
+            { 
+                id: '13', title: 'TERCEROS Y SUBCONTRATAS', icon: 'fa-handshake', docBase: 'SEG',
+                desc: 'Homologación de proveedores, SCTR Salud/Pensión y responsabilidad solidaria.', 
+                content: `
+                    <p class="text-sm text-gray-700 leading-relaxed">Bajo el Art. 68 de la Ley N.° 29783 y la cláusula 8.1.4 de ISO 45001:2018, todo subcontratista requiere homologación previa: pólizas <strong>SCTR Salud y Pensión</strong> activas, EMO homologado por Volcan, inducción Anexos 4 y 5 y adhesión irrestricta al <strong>RISST</strong>.</p>
+                `
+            },
+            { 
+                id: '14', title: 'RESPUESTA A EMERGENCIAS', icon: 'fa-truck-medical', docBase: 'SEG',
+                desc: 'Plan COMM.SSGAC.PPREC.01, Alertas (Amarilla/Naranja/Roja) y Rescate.', 
+                content: `
+                    <p class="text-sm text-gray-700 leading-relaxed">Canal de emergencia 24 h con Central Volcan: <strong>Anexo 7911</strong> y radio troncalizada. Incluye Comité de Manejo de Crisis, Brigadas (Primeros Auxilios, Evacuación/Rescate, Lucha contra Incendios) y <strong>Protocolo PAS de Rescate en Altura (COMM.SSOMA.PC.01)</strong> con tiempo límite de <strong>15 minutos</strong> para evitar el Síndrome del Arnés.</p>
+                `
+            },
+            { 
+                id: '15', title: 'AUDITORÍAS Y DIRECCIÓN', icon: 'fa-clipboard-check', docBase: 'SEG',
+                desc: 'Auditorías internas ISO 45001, acciones SAC/SAP y Revisión Gerencial.', 
+                content: `
+                    <p class="text-sm text-gray-700 leading-relaxed">Auditorías anuales independientes (meta 100%), gestión de No Conformidades mediante análisis de causa raíz (5 Porqués / Ishikawa) con verificación en campo a los 30–60 días, y Revisión Anual por la Alta Dirección.</p>
+                `
+            },
+            { 
+                id: '16', title: 'INVESTIGACIÓN DE INCIDENTES', icon: 'fa-kit-medical', docBase: 'SEG',
+                desc: 'Modelo Causal de Frank Bird y reporte oficial REG-COM-COP-05.', 
+                content: `
+                    <p class="text-sm text-gray-700 leading-relaxed">Notificación inmediata en campo; accidentes mortales e incidentes peligrosos se notifican en máximo <strong>24 horas</strong> al MTPE y MINEM/Osinergmin (SAT). Investigación bajo el Modelo Causal de Pérdidas de Frank Bird, 5 Porqués y Árbol de Causas.</p>
+                `
+            }
+        ];
+
+        // 8 REGISTROS OBLIGATORIOS (NUMERAL 5 DE SEG.pdf)
+        const registrosSST = [
+            { id: 'REG-5.1', title: 'Accidentes de Trabajo, Incidentes Peligrosos e Incidentes', custodia: '10 años', formato: 'REG-COM-COP-05', icon: 'fa-notes-medical' },
+            { id: 'REG-5.2', title: 'Enfermedades Ocupacionales', custodia: '20 años', formato: 'Confidencial Médico Ocupacional', icon: 'fa-stethoscope' },
+            { id: 'REG-5.3', title: 'Exámenes Médicos Ocupacionales (EMO)', custodia: '20 años', formato: 'Certificados Aptitud DIGESA/Volcan', icon: 'fa-file-medical' },
+            { id: 'REG-5.4', title: 'Monitoreos de Agentes Ocupacionales', custodia: '20 años', formato: 'Ruido, Iluminación, Ergonomía, Psicosocial', icon: 'fa-wave-square' },
+            { id: 'REG-5.5', title: 'Inspecciones Internas de SST', custodia: '5 años', formato: 'REG-TA-GLO-08-07 (120/año)', icon: 'fa-clipboard-list' },
+            { id: 'REG-5.6', title: 'Estadísticas de Seguridad y Salud', custodia: '5 años', formato: 'LTIFR, DSIFR, TRIFR, HHT', icon: 'fa-chart-column' },
+            { id: 'REG-5.7', title: 'Equipos de Seguridad o Emergencia (EPP)', custodia: '5 años', formato: 'Procedimiento PR-SSOMA-04', icon: 'fa-shield-halved' },
+            { id: 'REG-5.8', title: 'Inducción, Capacitación, Entrenamiento y Simulacros', custodia: '5 años', formato: 'Actas Anexos 4, 5 y 6', icon: 'fa-chalkboard-user' }
+        ];
+
+        function renderCards() {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = '';
+            componentesPASST.forEach(comp => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-sm border border-gray-200 hover:border-corp-light hover:shadow-md transition-all p-5 flex flex-col justify-between cursor-pointer group";
+                card.onclick = () => showDetail(comp.id);
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold bg-blue-100 text-corp-light px-2.5 py-1 rounded-full">${comp.id}</span>
+                            <i class="fa-solid ${comp.icon} text-corp-light text-xl group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-bold text-corp-dark text-base mb-2 group-hover:text-corp-light transition-colors">${comp.title}</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">${comp.desc}</p>
+                    </div>
+                    <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-corp-light">
+                        <span>Ver contenido</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderRegistros() {
+            const container = document.getElementById('registros-container');
+            container.innerHTML = '';
+            registrosSST.forEach(reg => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl border border-gray-200 p-5 flex flex-col justify-between shadow-sm hover:border-corp-light transition-all";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-extrabold text-corp-light bg-blue-50 px-2.5 py-1 rounded">${reg.id}</span>
+                            <i class="fa-solid ${reg.icon} text-slate-400 text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-corp-dark text-sm mb-2">${reg.title}</h3>
+                        <p class="text-xs text-gray-500 mb-3">${reg.formato}</p>
+                    </div>
+                    <div class="bg-slate-100 text-slate-700 text-xs font-bold py-1.5 px-3 rounded flex items-center justify-between">
+                        <span>Custodia legal:</span>
+                        <span class="text-corp-blue">${reg.custodia}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function navigate(view) {
+            ['view-estructura', 'view-detalle', 'view-registros', 'view-documentos'].forEach(id => {
+                document.getElementById(id).classList.add('hidden-view');
+            });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn text-gray-300 hover:bg-slate-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            });
+
+            if (view === 'home') {
+                document.getElementById('view-estructura').classList.remove('hidden-view');
+                document.getElementById('nav-home').className = "nav-btn bg-corp-light text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            } else if (view === 'registros') {
+                document.getElementById('view-registros').classList.remove('hidden-view');
+                document.getElementById('nav-registros').className = "nav-btn bg-corp-light text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            } else if (view === 'documentos') {
+                document.getElementById('view-documentos').classList.remove('hidden-view');
+                document.getElementById('nav-documentos').className = "nav-btn bg-corp-light text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showDetail(id) {
+            const comp = componentesPASST.find(c => c.id === id);
+            if (!comp) return;
+
+            document.getElementById('detalle-num').innerText = comp.id;
+            document.getElementById('detalle-titulo').innerText = comp.title;
+            document.getElementById('detalle-desc').innerText = comp.desc;
+            document.getElementById('detalle-contenido').innerHTML = comp.content;
+            document.getElementById('detalle-doc-btn').onclick = () => openDocumentModal(comp.docBase, `${comp.title} (${comp.docBase})`);
+
+            ['view-estructura', 'view-registros', 'view-documentos'].forEach(v => document.getElementById(v).classList.add('hidden-view'));
+            document.getElementById('view-detalle').classList.remove('hidden-view');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCards();
+            renderRegistros();
+        });
+    </script>
+</body>
+</html>

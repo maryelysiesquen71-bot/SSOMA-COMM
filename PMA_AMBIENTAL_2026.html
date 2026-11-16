@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Manejo Ambiental (PMA) 2026 - UNMSM | EPISST | COMM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        eco: {
+                            dark: '#13382C',
+                            forest: '#1B4D3E',
+                            accent: '#2D6A4F',
+                            light: '#40916C',
+                            soft: '#E8F5E9',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7f5; color: #1f2937; }
+        .fade-in { animation: fadeIn 0.35s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .hidden-view { display: none !important; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- MENÚ SUPERIOR -->
+    <nav class="bg-eco-dark text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-leaf text-emerald-400 text-xl"></i>
+                    <span class="font-bold text-lg tracking-tight">PMA 2026 • COMM & UNMSM</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-2">
+                    <button onclick="navigate('home')" id="nav-home" class="nav-btn bg-eco-accent text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio / Estructura PMA</button>
+                    <button onclick="navigate('aspectos')" id="nav-aspectos" class="nav-btn text-gray-200 hover:bg-eco-forest hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">12 Aspectos e Impactos</button>
+                    <button onclick="navigate('documentos')" id="nav-documentos" class="nav-btn text-gray-200 hover:bg-eco-forest hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">7 Documentos Adjuntos</button>
+                </div>
+                <div class="md:hidden flex items-center gap-3">
+                    <button onclick="navigate('home')" class="text-gray-200 hover:text-white"><i class="fa-solid fa-home"></i></button>
+                    <button onclick="navigate('aspectos')" class="text-gray-200 hover:text-white"><i class="fa-solid fa-seedling"></i></button>
+                    <button onclick="navigate('documentos')" class="text-gray-200 hover:text-white"><i class="fa-solid fa-folder-open"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ENCABEZADO CON COVER PANORÁMICO ESTILO NOTION -->
+    <header class="bg-white border-b border-gray-200">
+        <!-- Portada panorámica horizontal (foto_grupal) -->
+        <div class="w-full h-56 md:h-64 bg-gradient-to-r from-emerald-950 via-teal-900 to-emerald-800 relative overflow-hidden">
+            <img id="banner-grupal" src="foto_grupal.png" alt="Fotografía Grupal - Grupo 8 EPISST" class="w-full h-full object-cover object-center opacity-90">
+            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/85 via-emerald-950/25 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 sm:left-8 right-4 flex flex-wrap items-center justify-between gap-2 text-white">
+                <span class="bg-emerald-700/90 backdrop-blur-sm text-xs font-bold px-3 py-1 rounded-full border border-emerald-400/40">
+                    <i class="fa-solid fa-university mr-1.5"></i> UNMSM • Facultad de Ingeniería Industrial • EPISST
+                </span>
+                <span class="bg-emerald-950/80 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
+                    Subcuenca Alta del Río Yauli (4,000 – 4,700 m.s.n.m.) • Volcan Cía. Minera S.A.A.
+                </span>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-6">
+                <!-- Logos Institucionales -->
+                <div class="flex items-center gap-3 shrink-0">
+                    <div class="w-28 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white p-1.5 shadow-sm">
+                        <img src="logoFII.png" onerror="this.src='logoFII.jpg'; this.onerror=null;" alt="Logo FII" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="w-24 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white p-1.5 shadow-sm">
+                        <img src="logoEPISST.jpg" onerror="this.src='logoEPISST.png'; this.onerror=null;" alt="Logo EPISST" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <div class="w-28 h-20 border border-gray-200 rounded-lg flex items-center justify-center bg-white p-1.5 shadow-sm">
+                        <img src="COMM.png" onerror="this.src='COMM.jpg'; this.onerror=null;" alt="Logo COMM" class="max-h-full max-w-full object-contain">
+                    </div>
+                </div>
+
+                <!-- Títulos y Accesos Directos -->
+                <div class="flex-1 text-center lg:text-left w-full">
+                    <h2 class="text-xs font-bold text-eco-accent tracking-widest uppercase mb-1">COMMUNICATIONS AND SYSTEMS DEVELOPMENT S.A.C. (COMM)</h2>
+                    <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 mb-3">
+                        <h1 class="text-2xl md:text-3xl font-extrabold text-eco-dark">Plan de Manejo Ambiental Integral (PMA)</h1>
+                        
+                        <div class="flex flex-wrap items-center justify-center xl:justify-end gap-2 shrink-0">
+                            <button onclick="openDocumentModal('ambiental', 'Plan de Manejo Ambiental (ambiental.pdf)')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm flex items-center">
+                                <i class="fa-solid fa-file-pdf mr-1.5 text-sm"></i> Ver ambiental.pdf
+                            </button>
+                            <button onclick="navigate('documentos')" class="bg-eco-accent hover:bg-eco-dark text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-sm flex items-center">
+                                <i class="fa-solid fa-folder-tree mr-1.5 text-sm"></i> Ver 7 Anexos SSOMAC
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-2">
+                        <span class="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200">AÑO: 2026 | PRESUPUESTO: $10,800.00 USD</span>
+                        <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded border border-slate-200">Curso: Prevención y Control de Riesgos Laborales y Ambientales</span>
+                        <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded border border-slate-200">Docente: Dr. Edito Luis Rojas Linares</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de Integrantes Grupo 8 -->
+            <div class="mt-5 pt-4 border-t border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 bg-eco-soft/60 px-4 py-3 rounded-lg border border-emerald-200">
+                    <span class="text-xs font-extrabold text-eco-dark uppercase tracking-wider shrink-0">
+                        <i class="fa-solid fa-users text-eco-accent mr-1.5"></i> Grupo 8 — Autores:
+                    </span>
+                    <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-800 font-medium">
+                        <span>• Condorcuya Flores, Gerardo Manuel <strong class="text-eco-accent">(23170109)</strong></span>
+                        <span>• Siesquen Roman, Gina Maryely <strong class="text-eco-accent">(23170304)</strong></span>
+                        <span>• Arias Benavides, Leonardo Miguel <strong class="text-eco-accent">(23170278)</strong></span>
+                        <span>• Delgado Jonis, Kassandra Mirella <strong class="text-eco-accent">(23170288)</strong></span>
+                        <span>• Vite Pimentel, Emmy Hilary <strong class="text-eco-accent">(23170122)</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full relative">
+
+        <!-- VISTA 1: ESTRUCTURA DEL PMA -->
+        <div id="view-estructura" class="fade-in">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-eco-dark">Estructura del Plan de Manejo Ambiental (PMA)</h2>
+                <p class="text-gray-600 text-sm mt-1">Seleccione un módulo para consultar el diagnóstico, línea base, programas ambientales, presupuesto y anexos.</p>
+            </div>
+            
+            <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        </div>
+
+        <!-- VISTA 2: DETALLE DEL COMPONENTE -->
+        <div id="view-detalle" class="hidden-view fade-in">
+            <div class="mb-6 flex justify-between items-center">
+                <button onclick="navigate('home')" class="text-eco-accent hover:text-eco-dark font-medium transition-colors flex items-center bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm hover:shadow">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Volver a la estructura
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-eco-dark text-white px-6 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="detalle-num" class="bg-white/20 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl border border-white/30">00</div>
+                        <div>
+                            <h2 id="detalle-titulo" class="text-xl font-bold">Título del Módulo</h2>
+                            <p id="detalle-desc" class="text-emerald-200 text-sm">Descripción breve</p>
+                        </div>
+                    </div>
+                    <button id="detalle-doc-btn" class="shrink-0 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-md flex items-center">
+                        <i class="fa-solid fa-eye mr-2"></i> Visualizar Documento
+                    </button>
+                </div>
+                
+                <div id="detalle-contenido" class="p-6 md:p-8"></div>
+            </div>
+        </div>
+
+        <!-- VISTA 3: LOS 12 ASPECTOS E IMPACTOS AMBIENTALES -->
+        <div id="view-aspectos" class="hidden-view fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-eco-dark">Los 12 Aspectos e Impactos Ambientales Identificados</h2>
+                <p class="text-gray-600 text-sm mt-1">Evaluados mediante Matriz de Significancia (S &times; P) conforme a ISO 14001:2015 en interior mina y superficie.</p>
+            </div>
+            
+            <div id="aspectos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <!-- VISTA 4: LOS 7 DOCUMENTOS ADJUNTOS + BASE -->
+        <div id="view-documentos" class="hidden-view fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-eco-dark">Visor de Documentos Técnicos SSOMAC</h2>
+                <p class="text-gray-600 text-sm mt-1">Accede directamente a los 7 documentos complementarios (Controles AM, EVAAMAM, EVAL, EVASOAM, MITI, PRAM, PSIG) y al informe base.</p>
+            </div>
+
+            <div id="docs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+
+    </main>
+
+    <!-- MODAL VISOR INTERACTIVO DE DOCUMENTOS E IMÁGENES -->
+    <div id="doc-modal" class="hidden-view fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[88vh] flex flex-col overflow-hidden border border-slate-300">
+            <div class="bg-eco-dark text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-lines text-emerald-400 text-lg"></i>
+                    <h3 id="modal-title" class="font-bold text-base md:text-lg">Visor de Documento</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a id="modal-download" href="#" download class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">
+                        <i class="fa-solid fa-download mr-1"></i> Descargar
+                    </a>
+                    <button onclick="closeDocumentModal()" class="text-gray-300 hover:text-white text-xl px-2">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="modal-body" class="flex-1 bg-slate-100 relative overflow-auto flex items-center justify-center p-2"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-500">
+            UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS • FACULTAD DE INGENIERÍA INDUSTRIAL • EPISST • 2026
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        const bannerImg = document.getElementById('banner-grupal');
+        bannerImg.onerror = function() {
+            if (this.src.endsWith('.png')) this.src = 'foto_grupal.jpg';
+            else if (this.src.endsWith('.jpg')) this.src = 'foto_grupal.jpeg';
+            else this.style.display = 'none';
+        };
+
+        // Visor inteligente de documentos e imágenes
+        function openDocumentModal(baseName, title) {
+            const modal = document.getElementById('doc-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalDownload = document.getElementById('modal-download');
+
+            modalTitle.innerText = title;
+            modalBody.innerHTML = `<div class="text-center text-slate-500"><i class="fa-solid fa-spinner fa-spin text-3xl mb-2"></i><p class="text-sm">Cargando <strong>${baseName}</strong>...</p></div>`;
+            modal.classList.remove('hidden-view');
+
+            const candidates = [`${baseName}.pdf`, `${baseName}.png`, `${baseName}.jpg`, `${baseName}.jpeg`];
+
+            function tryLoad(index) {
+                if (index >= candidates.length) {
+                    modalDownload.href = `${baseName}.pdf`;
+                    modalBody.innerHTML = `
+                        <div class="text-center p-8 bg-white rounded-xl border border-dashed border-slate-300 max-w-md">
+                            <i class="fa-solid fa-folder-open text-4xl text-emerald-600 mb-3"></i>
+                            <h4 class="font-bold text-slate-800 text-base mb-1">Archivo "${baseName}" listo para vincular</h4>
+                            <p class="text-xs text-slate-500 mb-4">Coloca el archivo <strong>${baseName}.pdf</strong> (o .png / .jpg) junto a este HTML para visualizarlo directamente.</p>
+                            <a href="${baseName}.pdf" target="_blank" class="inline-block bg-eco-accent text-white px-4 py-2 rounded-lg text-xs font-bold">Intentar abrir enlace directo</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const file = candidates[index];
+                fetch(file, { method: 'HEAD' })
+                    .then(res => {
+                        if (res.ok) {
+                            modalDownload.href = file;
+                            if (file.endsWith('.pdf')) {
+                                modalBody.innerHTML = `<iframe src="${file}" class="w-full h-full rounded-lg border-0 bg-white"></iframe>`;
+                            } else {
+                                modalBody.innerHTML = `<img src="${file}" alt="${title}" class="max-w-full max-h-full object-contain rounded-lg shadow-md">`;
+                            }
+                        } else {
+                            tryLoad(index + 1);
+                        }
+                    })
+                    .catch(() => {
+                        modalDownload.href = `${baseName}.pdf`;
+                        modalBody.innerHTML = `
+                            <div class="w-full h-full flex flex-col">
+                                <iframe src="${baseName}.pdf" class="w-full flex-1 rounded-lg border-0 bg-white"></iframe>
+                                <div class="bg-slate-800 text-white text-xs px-4 py-2 flex justify-between items-center">
+                                    <span>¿Tu archivo es una imagen?</span>
+                                    <div class="space-x-2">
+                                        <button onclick="document.querySelector('#modal-body').innerHTML='<img src=\\'${baseName}.png\\' class=\\'max-w-full max-h-full object-contain\\'>'" class="underline text-emerald-300">Cargar .PNG</button>
+                                        <button onclick="document.querySelector('#modal-body').innerHTML='<img src=\\'${baseName}.jpg\\' class=\\'max-w-full max-h-full object-contain\\'>'" class="underline text-emerald-300">Cargar .JPG</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+            }
+
+            tryLoad(0);
+        }
+
+        function closeDocumentModal() {
+            document.getElementById('doc-modal').classList.add('hidden-view');
+            document.getElementById('modal-body').innerHTML = '';
+        }
+
+        // MÓDULOS DEL PLAN DE MANEJO AMBIENTAL (ambiental.pdf)
+        const modulosPMA = [
+            {
+                id: '01', title: 'DIAGNÓSTICO DE 4 BRECHAS', icon: 'fa-magnifying-glass-chart', docBase: 'ambiental',
+                desc: 'Reingeniería del Programa 2025 (PL-COMM-GLO-08-01 v.01).',
+                content: `
+                    <p class="text-sm text-gray-700 mb-4">El análisis académico UNMSM detectó 4 brechas críticas en el programa precursor que este PMA Integral subsana:</p>
+                    <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                        <li><strong>Insuficiente línea base socioambiental:</strong> Omitía receptores sensibles como bofedales, fuentes hídricas glaciares y pastizales de puna.</li>
+                        <li><strong>Evaluación solo cualitativa:</strong> Carecía de matriz cuantitativa (S &times; P) para priorizar gasto y controles.</li>
+                        <li><strong>Omisión total del manejo de RAEE:</strong> No regulaba el descarte de switches, routers, baterías UPS y módulos SFP bajo el <strong>D.S. 009-2019-MINAM</strong>.</li>
+                        <li><strong>Desarticulación SST – ISO 14001:</strong> Aislaba la Ley 29783 de los controles sobre suelo, agua y aire de la cuenca del río Yauli.</li>
+                    </ol>
+                `
+            },
+            {
+                id: '02', title: 'OBJETIVOS Y ALCANCE', icon: 'fa-bullseye', docBase: 'ambiental',
+                desc: '6 objetivos específicos, 14 colaboradores y exclusiones operacionales.',
+                content: `
+                    <div class="space-y-4 text-sm text-gray-700">
+                        <p><strong>Alcance:</strong> Obligatorio para los <strong>14 colaboradores destacados</strong> de COMM (1 Residente, 1 Ing. Supervisor SCCA, 2 Supervisores de Operaciones y 10 Técnicos/conductores) en oficinas, laboratorio de fibra, almacén, estacionamiento y labores subterráneas.</p>
+                        <p><strong>Exclusiones Operacionales:</strong> No incluye procesos mineros del titular (Volcan): perforación/voladura masiva, desatado pesado, acarreo con scooptrams/dumpers, planta concentradora, presas de relaves, tratamiento de aguas ácidas/PTARD ni mantenimiento mayor de maquinaria pesada.</p>
+                    </div>
+                `
+            },
+            {
+                id: '03', title: 'MARCO LEGAL E INSTITUCIONAL', icon: 'fa-scale-balanced', docBase: 'ambiental',
+                desc: 'Normativa ambiental peruana, ECAs y gobernanza Volcan – COMM.',
+                content: `
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• <strong>Normas Generales y Residuos:</strong> Constitución (Art. 2 inc. 22), Ley N.° 28611, Ley N.° 28245, D.L. N.° 1278 / D.S. 014-2017-MINAM (SIGERSOL), D.S. N.° 009-2019-MINAM (RAEE) y NTP 900.058:2019.</li>
+                        <li>• <strong>Estándares de Calidad Ambiental (ECA):</strong> Aire (D.S. 003-2017), Agua Cat. 3 y 4 (D.S. 004-2017), Suelo (D.S. 011-2017) y Ruido (D.S. 085-2003-PCM).</li>
+                        <li>• <strong>Fiscalización:</strong> Superintendencia de Medio Ambiente de Volcan, OEFA y OSINERGMIN.</li>
+                    </ul>
+                `
+            },
+            {
+                id: '04', title: 'PROYECTO, FLOTA Y QUÍMICOS', icon: 'fa-truck-pickup', docBase: 'ambiental',
+                desc: 'Fibra óptica ITU-T G.652.D, 2 camionetas 4x4 SCR y sustancias peligrosas.',
+                content: `
+                    <div class="space-y-3 text-sm text-gray-700">
+                        <p><strong>Infraestructura:</strong> Fibra óptica monomodo dieléctrica con Kevlar y chaqueta LSZH, cable blindado Cat 6A, gabinetes NEMA 4X / IP66, switches industriales (-40 °C a +75 °C), sistemas UPS y empalmes por fusión OTDR (&le;0.1 dB).</p>
+                        <p><strong>Flota e Insumos:</strong> 2 camionetas pick-up 4x4 turbodiésel con reducción catalítica <strong>SCR (AdBlue AUS 32)</strong>, jaula antivuelco y pértiga 4 m. Químicos controlados: Diésel B5-S50, aceites SAE 15W-40, refrigerante etilenglicol, DOT 4, alcohol isopropílico al 99.8% (CAS 67-63-0) y limpiador dieléctrico.</p>
+                    </div>
+                `
+            },
+            {
+                id: '05', title: 'POLÍTICA INTEGRADA (PSIG)', icon: 'fa-file-signature', docBase: 'PSIG',
+                desc: 'Política RD-PL-01 Versión 08 (ISO 9001, ISO 14001 e ISO 45001).',
+                content: `
+                    <div class="bg-eco-soft/50 border border-emerald-200 p-5 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                        <p class="text-sm text-gray-700">Firmada el <strong>15/10/2025</strong> por Filiberto Revilla (CEO) y Sergio Gonzales (Gerente General), respaldada por certificaciones trinorma ISO y reconocimientos <strong>Huella de Carbono Perú (MINAM), ESR, ABE y GPTW</strong>.</p>
+                        <button onclick="openDocumentModal('PSIG', 'Política Integrada de Gestión (PSIG)')" class="shrink-0 bg-eco-accent text-white px-4 py-2 rounded-lg text-xs font-bold">Ver PSIG</button>
+                    </div>
+                `
+            },
+            {
+                id: '06', title: 'LÍNEA BASE SOCIOAMBIENTAL', icon: 'fa-mountain-sun', docBase: 'ambiental',
+                desc: 'Subcuenca del río Yauli, bofedales, flora/fauna de puna y comunidades.',
+                content: `
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• <strong>Medio Físico:</strong> Clima Frío de Puna (oscilación &gt;20 °C, heladas -5 °C a -15 °C), temporada húmeda dic–mar (650–900 mm), suelos Entisoles/Inceptisoles (Tierras de Protección X) y subcuenca alta del río Yauli.</li>
+                        <li>• <strong>Medio Biológico:</strong> Pajonales (<i>Stipa ichu</i>, <i>Festuca dolichophylla</i>) y <strong>Bofedales</strong> (<i>Distichia muscoides</i>). Fauna sensible: vizcacha, zorro andino, huallata, pato sutro y perdiz serrana.</li>
+                        <li>• <strong>Medio Socioeconómico:</strong> Turnos atípicos (14x7 / 21x10) y respeto ambiental hacia las Comunidades Campesinas de Yauli, Huancachupa y Pachachaca.</li>
+                    </ul>
+                `
+            },
+            {
+                id: '07', title: 'MATRIZ DE IMPACTOS (S × P)', icon: 'fa-table-cells', docBase: 'EVAAMAM',
+                desc: 'Valoración semicuantitativa de los 12 aspectos ambientales.',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm text-gray-700">Cálculo <strong>Significancia = Severidad (S) &times; Probabilidad (P)</strong>: Bajo (1–4), Moderado (5–9), <strong>Alto (10–16: emisiones, derrames, RESPEL, RAEE, ruido, incendios)</strong> y Crítico (17–25).</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="navigate('aspectos')" class="bg-eco-accent text-white px-4 py-2 rounded-lg text-xs font-bold">Ver los 12 Aspectos</button>
+                            <button onclick="openDocumentModal('EVAAMAM', 'Evaluación de Riesgo Ambiental (EVAAMAM)')" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-bold">Abrir EVAAMAM</button>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: '08', title: 'PMIR Y SUBPROGRAMA RAEE', icon: 'fa-recycle', docBase: 'Controles AM',
+                desc: 'Código de colores NTP 900.058:2019 y gestión RAEE (D.S. 009-2019-MINAM).',
+                content: `
+                    <div class="space-y-3 text-sm text-gray-700">
+                        <p><strong>Segregación NTP 900.058:2019:</strong> Amarillo (metales), Verde (vidrio), Azul (papel/cartón), Blanco (plásticos), Marrón (orgánicos), Negro (no aprovechables) y Rojo (peligrosos), con declaración en <strong>SIGERSOL</strong>.</p>
+                        <p><strong>Subprograma RAEE:</strong> Desconexión sin desarme destructivo, inventario técnico, almacenamiento estanco (separando baterías plomo-ácido e ion-litio) y entrega certificada a una <strong>EO-RS autorizada por el MINAM</strong>.</p>
+                    </div>
+                `
+            },
+            {
+                id: '09', title: 'KPIs Y AUDITORÍAS AMBIENTALES', icon: 'fa-chart-pie', docBase: 'PRAM',
+                desc: '8 indicadores cuantitativos (IFIAS = 0) y auditorías ISO 14001:2015.',
+                content: `
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• <strong>IFIAS = 0.00</strong> (Cero incidentes ambientales significativos).</li>
+                        <li>• <strong>Segregación y entrega RAEE a EO-RS = 100%</strong>.</li>
+                        <li>• <strong>Operatividad Kits Antiderrame = 100%</strong> y <strong>24 inspecciones ambientales/año</strong> (internas y cruzadas).</li>
+                        <li>• Cierre de hallazgos en <strong>&lt;24 h (críticos)</strong>, <strong>&lt;72 h (altos)</strong> y <strong>2 semanas (moderados)</strong>.</li>
+                    </ul>
+                `
+            },
+            {
+                id: '10', title: 'CRONOGRAMA Y PRESUPUESTO', icon: 'fa-sack-dollar', docBase: 'PRAM',
+                desc: 'Ejecución continua a 12 meses y presupuesto consolidado de $10,800.00 USD.',
+                content: `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-700">
+                        <div class="bg-slate-50 p-3 rounded border">• Kits antiderrame y contención secundaria: <strong>$1,800.00 USD</strong></div>
+                        <div class="bg-slate-50 p-3 rounded border">• Estaciones y contenedores NTP 900.058: <strong>$1,500.00 USD</strong></div>
+                        <div class="bg-slate-50 p-3 rounded border">• Gestión y transporte RAEE/RESPEL (EO-RS): <strong>$2,500.00 USD</strong></div>
+                        <div class="bg-slate-50 p-3 rounded border">• Monitoreos acreditados INACAL: <strong>$1,800.00 USD</strong></div>
+                        <div class="bg-slate-50 p-3 rounded border">• Capacitaciones, campañas y simulacros: <strong>$1,200.00 USD</strong></div>
+                        <div class="bg-slate-50 p-3 rounded border">• Auditorías ISO 14001 y cierre ambiental: <strong>$2,000.00 USD</strong></div>
+                    </div>
+                `
+            }
+        ];
+
+        // 12 ASPECTOS AMBIENTALES (CAPÍTULO 3 DE ambiental.pdf)
+        const doceAspectos = [
+            { num: '01', titulo: 'Potencial derrame de hidrocarburos', nivel: 'ALTO', color: 'red', detalle: 'Fugas de camionetas 4x4 en rampas/taller -> Riesgo sobre suelos Entisoles, bofedales y río Yauli.' },
+            { num: '02', titulo: 'Emisión de gases de combustión', nivel: 'ALTO', color: 'red', detalle: 'Motores turbodiésel a >4,000 m.s.n.m. -> Deterioro de aire en socavón y GEI (control con AdBlue SCR).' },
+            { num: '03', titulo: 'Generación de residuos peligrosos (RESPEL)', nivel: 'ALTO', color: 'red', detalle: 'Trapos con aceite, guantes contaminados, envases de solventes y aerosoles -> Relleno de seguridad EO-RS.' },
+            { num: '04', titulo: 'Generación de RAEE', nivel: 'ALTO', color: 'red', detalle: 'Descarte de switches, routers, módulos SFP, UPS y cableado -> Valorización formal D.S. 009-2019-MINAM.' },
+            { num: '05', titulo: 'Generación de ruido y vibraciones', nivel: 'ALTO', color: 'red', detalle: 'Rotomartillos y tránsito vehicular -> Ahuyentamiento de fauna (vizcachas, aves) y ruido industrial.' },
+            { num: '06', titulo: 'Potencial generación de incendios', nivel: 'ALTO', color: 'red', detalle: 'Cortocircuitos en gabinetes, baterías litio o alcohol isopropílico 99.8% -> Humos tóxicos.' },
+            { num: '07', titulo: 'Residuos sólidos no aprovechables', nivel: 'ALTO', color: 'red', detalle: 'Envoltorios multicapa, EPP desgastado y cintas aislantes -> Ocupación de relleno sanitario.' },
+            { num: '08', titulo: 'Generación de residuos orgánicos', nivel: 'MODERADO', color: 'amber', detalle: 'Restos de refrigerios -> Atracción de vectores y fauna oportunista (zorro andino).' },
+            { num: '09', titulo: 'Consumo de agua industrial y doméstico', nivel: 'MODERADO', color: 'amber', detalle: 'Limpieza de herramientas y áreas -> Uso racional en cabecera de cuenca.' },
+            { num: '10', titulo: 'Consumo de energía eléctrica', nivel: 'MODERADO', color: 'amber', detalle: 'Servidores, fusionadoras ópticas, OTDR y recarga de baterías -> Ecoeficiencia energética.' },
+            { num: '11', titulo: 'Residuos inorgánicos aprovechables', nivel: 'MODERADO', color: 'emerald', detalle: 'Recortes de bandejas galvanizadas, cobre y PVC -> Impacto positivo por reciclaje (+).' },
+            { num: '12', titulo: 'Consumo de papel y embalajes de cartón', nivel: 'BAJO', color: 'blue', detalle: 'Reportes técnicos y cajas de equipos -> Digitalización y segregación en contenedor azul.' }
+        ];
+
+        // 7 DOCUMENTOS ADJUNTOS + INFORME BASE
+        const documentosAdjuntos = [
+            { code: 'Controles AM', title: 'Controles AM', desc: 'Niveles de controles implementados según Riesgo Residual (A >1000 hasta E <99).', icon: 'fa-sliders' },
+            { code: 'EVAAMAM', title: 'EVAAMAM', desc: 'Evaluación del Riesgo Ambiental: criterios de Severidad, Probabilidad y Exposición.', icon: 'fa-leaf' },
+            { code: 'EVAL', title: 'EVAL', desc: 'Clasificación de Tipo de Riesgo Residual (Tipo A Intolerable a Tipo E Tolerable).', icon: 'fa-layer-group' },
+            { code: 'EVASOAM', title: 'EVASOAM', desc: 'Evaluación de Riesgo de Salud Ocupacional (escalas respecto al LEO).', icon: 'fa-heart-pulse' },
+            { code: 'MITI', title: 'MITI', desc: 'Matriz de Control y Mitigación SSOMAC (99% a 3% en 6 ejes operativos).', icon: 'fa-shield-virus' },
+            { code: 'PRAM', title: 'PRAM', desc: 'Programa Anual de Gestión Ambiental 2025 (capacitaciones, inspecciones y metas).', icon: 'fa-calendar-check' },
+            { code: 'PSIG', title: 'PSIG', desc: 'Política Integrada de Gestión RD-PL-01 Versión 08 (15/10/2025).', icon: 'fa-award' },
+            { code: 'ambiental', title: 'ambiental.pdf (Base)', desc: 'Informe completo de 256 páginas del Plan de Manejo Ambiental Integral.', icon: 'fa-file-pdf' }
+        ];
+
+        function renderModulos() {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = '';
+            modulosPMA.forEach(mod => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-sm border border-gray-200 hover:border-eco-accent hover:shadow-md transition-all p-5 flex flex-col justify-between cursor-pointer group";
+                card.onclick = () => showDetail(mod.id);
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold bg-emerald-100 text-eco-dark px-2.5 py-1 rounded-full">${mod.id}</span>
+                            <i class="fa-solid ${mod.icon} text-eco-accent text-xl group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-bold text-eco-dark text-base mb-2 group-hover:text-eco-accent transition-colors">${mod.title}</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">${mod.desc}</p>
+                    </div>
+                    <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-eco-accent">
+                        <span>Ver detalle</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderAspectos() {
+            const container = document.getElementById('aspectos-container');
+            container.innerHTML = '';
+            const badgeColors = {
+                red: 'bg-red-100 text-red-700 border-red-200',
+                amber: 'bg-amber-100 text-amber-800 border-amber-200',
+                emerald: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+                blue: 'bg-blue-100 text-blue-800 border-blue-200'
+            };
+            doceAspectos.forEach(asp => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl border border-gray-200 p-5 shadow-sm flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-extrabold text-eco-dark bg-slate-100 px-2.5 py-1 rounded">ASPECTO ${asp.num}</span>
+                            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${badgeColors[asp.color]}">${asp.nivel}</span>
+                        </div>
+                        <h3 class="font-bold text-eco-dark text-sm mb-2">${asp.titulo}</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">${asp.detalle}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderDocumentos() {
+            const container = document.getElementById('docs-grid');
+            container.innerHTML = '';
+            documentosAdjuntos.forEach(doc => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl border border-gray-200 p-5 shadow-sm flex flex-col justify-between hover:border-eco-accent transition-all";
+                card.innerHTML = `
+                    <div>
+                        <div class="w-11 h-11 bg-emerald-50 text-eco-accent rounded-lg flex items-center justify-center text-xl mb-3">
+                            <i class="fa-solid ${doc.icon}"></i>
+                        </div>
+                        <h3 class="font-bold text-eco-dark text-base mb-1.5">${doc.title}</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">${doc.desc}</p>
+                    </div>
+                    <button onclick="openDocumentModal('${doc.code}', '${doc.title}')" class="w-full bg-eco-accent hover:bg-eco-dark text-white py-2 rounded-lg text-xs font-bold transition-colors">
+                        <i class="fa-solid fa-eye mr-1.5"></i> Abrir ${doc.code}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function navigate(view) {
+            ['view-estructura', 'view-detalle', 'view-aspectos', 'view-documentos'].forEach(id => {
+                document.getElementById(id).classList.add('hidden-view');
+            });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn text-gray-200 hover:bg-eco-forest hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            });
+
+            if (view === 'home') {
+                document.getElementById('view-estructura').classList.remove('hidden-view');
+                document.getElementById('nav-home').className = "nav-btn bg-eco-accent text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            } else if (view === 'aspectos') {
+                document.getElementById('view-aspectos').classList.remove('hidden-view');
+                document.getElementById('nav-aspectos').className = "nav-btn bg-eco-accent text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            } else if (view === 'documentos') {
+                document.getElementById('view-documentos').classList.remove('hidden-view');
+                document.getElementById('nav-documentos').className = "nav-btn bg-eco-accent text-white px-3 py-2 rounded-md text-sm font-medium transition-colors";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showDetail(id) {
+            const mod = modulosPMA.find(m => m.id === id);
+            if (!mod) return;
+
+            document.getElementById('detalle-num').innerText = mod.id;
+            document.getElementById('detalle-titulo').innerText = mod.title;
+            document.getElementById('detalle-desc').innerText = mod.desc;
+            document.getElementById('detalle-contenido').innerHTML = mod.content;
+            document.getElementById('detalle-doc-btn').onclick = () => openDocumentModal(mod.docBase, `${mod.title} (${mod.docBase})`);
+
+            ['view-estructura', 'view-aspectos', 'view-documentos'].forEach(v => document.getElementById(v).classList.add('hidden-view'));
+            document.getElementById('view-detalle').classList.remove('hidden-view');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderModulos();
+            renderAspectos();
+            renderDocumentos();
+        });
+    </script>
+</body>
+</html>
